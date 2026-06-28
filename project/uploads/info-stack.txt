@@ -1,0 +1,53 @@
+[Heading1] The Long Way Home — Website Info Stack
+[Heading2] Event essentials
+[FirstParagraph] CoupleEkaterina & Norayr
+[BodyText] DateSunday, 6 September 2026
+[BodyText] VenueVagharshyan Garden, Saghmosavan, Armenia
+[BodyText] SettingAn outdoor garden above the Kasakh Gorge, with views toward Saghmosavank monastery and Mt. Aragats.
+[BodyText] Travel from YerevanRoughly 40 minutes by car.
+
+[Heading2] Day timing
+[FirstParagraph] 16:30 — Guest arrivalWelcome drinks, food, lounge seating, and time to settle in.
+[BodyText] 17:00 — Bride & groom arrival
+[BodyText] 17:15 — Ceremony
+[BodyText] 18:00 — Dinner, drinks, and party begin
+[BodyText] 23:00 — First return Sprinter to Yerevan
+[BodyText] 00:00 — Final return Sprinter to Yerevan / time to go home
+
+[Heading2] Getting there and back
+[FirstParagraph] Getting thereGuests can arrive by taxi.
+[BodyText] Returning to YerevanSprinters will return guests at 23:00 and 00:00.
+[BodyText] Friendly reminderPlease do not drink and drive. We have Sprinters for a reason, and they are much better at going home than you will be after the bar.
+
+[Heading2] Guest contacts
+[FirstParagraph] For all guest questions, including practical and organisational matters:
+[BodyText] KseniaTelegram: @Kseniya_GYPhone: +7 908 244 8657
+[BodyText] KristinaTelegram: @svadba_krisPhone: +7 912 485 7796
+
+[Heading2] What guests can expect
+[Compact] Outdoor garden celebration with lounge areas and quieter corners.
+[Compact] Armenian and Russian food, drinks, music, and traditions.
+[Compact] Live lavash and an Areni wine tasting.
+[Compact] Dumpling station with khinkali, pelmeni, and boraki.
+[Compact] Signature drinks: Home and The Long Road.
+[Compact] Lawn games and relaxed areas around the garden.
+[Compact] Ceremony elements in Armenian, Russian, and English.
+[Compact] Dinner, dancing, candlelit gorge views, and stargazing.
+
+[Heading2] Website visual hooks
+[FirstParagraph] FeelingRefined garden celebration, warm and emotional, centred on coming home.
+[BodyText] Core visual languageLandscape, heritage, candlelight, linen, cognac leather, antique brass, wax seals, and natural greenery.
+[BodyText] IllustrationsFine linear illustrations with a light, elegant hand-drawn feeling.
+[BodyText] Illustration subjectsKasakh Gorge, Saghmosavank silhouette, ceremony arch, horseshoe crest, road line, grapevine, wheat, wildflowers, lavash, and subtle climbing references.
+[BodyText] Use illustrations forSection dividers, timeline moments, map details, practical-info icons, and small decorative accents.
+[BodyText] Key coloursDeep olive, sage, ivory linen, warm stone, sand, cognac leather, antique brass, and a restrained Areni-wine accent.
+[BodyText] Do not doDo not block the gorge view.Do not make it rustic, sporty, overly horse-themed, or generic wedding-template-like.Let photography lead; illustrations should support it, not replace it.
+
+[Heading2] Still needed before the practical site can launch
+[Compact] Exact venue map pin and taxi drop-off point.
+[Compact] Dress code and shoe guidance.
+[Compact] Weather / rain plan.
+[Compact] Accommodation recommendations.
+[Compact] What guests should bring for the evening.
+[Compact] Gift preference.
+[Compact] Final language setup for the site.

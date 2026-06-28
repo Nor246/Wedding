@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Noto+Serif+Armenian:wght@300;400;500;600&family=Noto+Sans+Armenian:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#f4eee2}
+img{display:block;max-width:100%}
+::selection{background:#6e2a35;color:#f1e9d8}
+@keyframes drawIn{to{stroke-dashoffset:0}}
+@keyframes flicker{0%,100%{transform:scale(1);opacity:.95}20%{transform:scale(1.06,.94);opacity:1}40%{transform:scale(.96,1.06);opacity:.82}60%{transform:scale(1.04,.97);opacity:1}80%{transform:scale(.98,1.03);opacity:.9}}
+@keyframes twinkle{0%,100%{opacity:.1}50%{opacity:.8}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes reveal{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
+@keyframes scrollcue{0%{transform:translateY(0);opacity:.6}55%{transform:translateY(9px);opacity:.12}100%{transform:translateY(0);opacity:.6}}
+@keyframes growLine{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+</style>
+<script src="image-slot.js"></script>
+</helmet>
+<div ref="{{ rootRef }}" id="top" style="--linen:#f4eee2;--linen2:#efe6d4;--stone:#e7dbc4;--sand:#dbcdb0;--olive:#3b4025;--olive-deep:#2c3019;--ink:#3a3e26;--ink-soft:#5d6047;--sage:#9aa583;--sage-soft:#bcc3aa;--cognac:#8c5a38;--leather:#33271f;--brass:#a6843f;--wine:#6e2a35;--accent:#6e2a35;--cream:#f1e9d8;--cream-soft:#cfc8b2;--sky-top:#efe4d0;--sky-bot:#f4eee2;--glow:0.55;position:relative;width:100%;min-height:100vh;background:var(--linen);font-family:'EB Garamond','Noto Serif Armenian',serif;color:var(--ink)">
+
+<!-- ============ NAV ============ -->
+<nav style="position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:15px clamp(18px,5vw,52px);backdrop-filter:blur(11px);-webkit-backdrop-filter:blur(11px);background:rgba(244,238,226,.74);border-bottom:1px solid rgba(166,132,63,.2)">
+  <a href="#top" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:21px;letter-spacing:.12em;color:var(--ink);text-decoration:none">E<span style="color:var(--accent);font-style:italic;margin:0 .14em">&amp;</span>N</a>
+  <div style="display:flex;align-items:center;gap:9px">
+    <button onClick="{{ setEn }}" data-lang="en" style="background:none;border:none;border-bottom:1px solid var(--accent);cursor:pointer;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11.5px;letter-spacing:.14em;color:var(--ink);padding:3px 1px">ENG</button>
+    <span style="color:var(--brass);opacity:.5">·</span>
+    <button onClick="{{ setRu }}" data-lang="ru" style="background:none;border:none;border-bottom:1px solid transparent;cursor:pointer;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11.5px;letter-spacing:.14em;color:var(--ink-soft);padding:3px 1px">РУС</button>
+    <span style="color:var(--brass);opacity:.5">·</span>
+    <button onClick="{{ setHy }}" data-lang="hy" style="background:none;border:none;border-bottom:1px solid transparent;cursor:pointer;font-family:'Noto Sans Armenian',sans-serif;font-size:11.5px;letter-spacing:.1em;color:var(--ink-soft);padding:3px 1px">ՀԱՅ</button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header style="position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px clamp(18px,5vw,52px) 72px;overflow:hidden;background:linear-gradient(180deg,var(--sky-top),var(--sky-bot) 62%)">
+
+  <!-- landscape (gorge + monastery) -->
+  <div data-scene="gorge" data-parallax data-speed="0.10" style="position:absolute;left:-2%;right:-2%;bottom:0;height:60%;z-index:1;pointer-events:none">
+    <svg viewBox="0 0 1440 560" preserveAspectRatio="xMidYMax slice" width="100%" height="100%" style="display:block">
+      <defs>
+        <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="var(--brass)" stop-opacity="0.4"/>
+          <stop offset="60%" stop-color="var(--brass)" stop-opacity="0.08"/>
+          <stop offset="100%" stop-color="var(--brass)" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="332" cy="150" r="150" fill="url(#sun)" style="opacity:var(--glow)"/>
+      <circle cx="332" cy="150" r="54" fill="var(--brass)" opacity="0.16"/>
+      <!-- distant Mt Aragats massif -->
+      <path d="M-40,392 C150,372 230,344 312,330 C352,262 372,262 404,210 L452,262 L500,178 L556,262 L598,222 L648,288 C840,308 1080,306 1480,300 L1480,470 L-40,470 Z" fill="var(--sage-soft)" opacity="0.5"/>
+      <!-- mid ridge -->
+      <path d="M-40,410 C200,372 360,404 520,382 C720,356 900,404 1100,382 C1250,368 1380,388 1480,382 L1480,478 L-40,478 Z" fill="var(--sage)" opacity="0.55"/>
+      <!-- near plateau (gorge rim) -->
+      <path d="M-40,476 C200,462 380,468 520,460 C640,454 720,478 840,460 C940,446 1010,460 1120,456 C1260,450 1380,462 1480,458 L1480,560 L-40,560 Z" fill="var(--olive)" opacity="0.92"/>
+      <!-- winding road home (draws in) -->
+      <path pathLength="1" d="M70,560 C320,540 420,506 600,498 C760,491 800,470 902,456" fill="none" stroke="var(--brass)" stroke-width="2.4" stroke-linecap="round" opacity="0.75" style="stroke-dasharray:1;stroke-dashoffset:1;animation:drawIn 2.6s ease .5s forwards"/>
+      <!-- Saghmosavank silhouette -->
+      <g fill="var(--olive-deep)">
+        <rect x="852" y="424" width="40" height="34"/>
+        <rect x="890" y="410" width="56" height="48"/>
+        <rect x="946" y="430" width="14" height="28"/>
+        <rect x="908" y="378" width="20" height="34"/>
+        <path d="M906,378 L918,350 L930,378 Z"/>
+        <rect x="916.6" y="338" width="2.8" height="14"/>
+        <rect x="912" y="343" width="12" height="2.6"/>
+      </g>
+      <!-- birds -->
+      <g fill="none" stroke="var(--olive-deep)" stroke-width="1.6" stroke-linecap="round" opacity="0.5">
+        <path d="M392,150 q7,-7 14,0 q7,-7 14,0"/>
+        <path d="M438,134 q5,-5 10,0 q5,-5 10,0"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- foreground botanicals -->
+  <div data-parallax data-speed="0.26" style="position:absolute;left:0;right:0;bottom:0;height:30%;z-index:3;pointer-events:none">
+    <svg viewBox="0 0 1440 280" preserveAspectRatio="xMidYMax slice" width="100%" height="100%" style="display:block">
+      <g fill="none" stroke="var(--olive)" stroke-width="1.5" stroke-linecap="round" opacity="0.7">
+        <!-- left wheat / grasses -->
+        <path d="M64,280 C58,220 60,180 70,150"/>
+        <path d="M92,280 C96,214 92,176 84,150"/>
+        <path d="M120,280 C118,230 122,196 130,168"/>
+        <g stroke-width="1.3">
+          <path d="M70,150 q-9,-5 -14,-14 M70,150 q9,-5 14,-14 M70,143 q-9,-4 -13,-12 M70,143 q9,-4 13,-12 M70,158 q-9,-4 -13,-11 M70,158 q9,-4 13,-11"/>
+        </g>
+        <!-- a wildflower left -->
+        <path d="M150,280 C150,236 148,206 146,184" stroke="var(--sage)"/>
+        <g stroke="var(--cognac)" stroke-width="1.3"><circle cx="146" cy="178" r="6" fill="none"/><path d="M146,172 v-7 M146,184 v6 M140,178 h-7 M152,178 h7 M141,173 l-5,-5 M151,173 l5,-5"/></g>
+        <!-- right wheat / grasses -->
+        <path d="M1376,280 C1382,220 1380,180 1370,150"/>
+        <path d="M1348,280 C1344,214 1348,176 1356,150"/>
+        <path d="M1320,280 C1322,230 1318,196 1310,168"/>
+        <g stroke-width="1.3"><path d="M1370,150 q-9,-5 -14,-14 M1370,150 q9,-5 14,-14 M1370,143 q-9,-4 -13,-12 M1370,143 q9,-4 13,-12 M1370,158 q-9,-4 -13,-11 M1370,158 q9,-4 13,-11"/></g>
+        <!-- grapevine right -->
+        <path d="M1290,280 C1294,240 1280,214 1296,190 C1306,176 1296,166 1300,158" stroke="var(--sage)"/>
+        <g stroke="var(--wine)" stroke-width="1.1" fill="none"><circle cx="1284" cy="206" r="4"/><circle cx="1292" cy="214" r="4"/><circle cx="1300" cy="208" r="4"/></g>
+      </g>
+    </svg>
+  </div>
+
+  <!-- ceremony arch behind content -->
+  <svg data-scene="arch" viewBox="0 0 600 780" preserveAspectRatio="xMidYMid meet" style="position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:min(640px,94vw);height:min(86vh,820px);z-index:2;pointer-events:none">
+    <path pathLength="1" d="M150,780 L150,322 C150,206 232,156 300,120 C368,156 450,206 450,322 L450,780" fill="none" stroke="var(--brass)" stroke-width="1.4" opacity="0.6" style="stroke-dasharray:1;stroke-dashoffset:1;animation:drawIn 2.8s ease .3s forwards"/>
+    <path pathLength="1" d="M164,780 L164,326 C164,214 240,168 300,136 C360,168 436,214 436,326 L436,780" fill="none" stroke="var(--brass)" stroke-width="0.9" opacity="0.34" style="stroke-dasharray:1;stroke-dashoffset:1;animation:drawIn 2.8s ease .5s forwards"/>
+    <!-- keystone -->
+    <path d="M300,118 l9,13 l-9,13 l-9,-13 Z" fill="none" stroke="var(--brass)" stroke-width="1.2" opacity="0.6"/>
+    <!-- climbing sprigs at springline -->
+    <g fill="none" stroke="var(--sage)" stroke-width="1.2" opacity="0.7">
+      <path d="M150,330 C176,318 182,300 180,282 C198,294 196,316 178,330"/>
+      <path d="M450,330 C424,318 418,300 420,282 C402,294 404,316 422,330"/>
+      <path d="M168,372 q-16,-8 -22,-22 M432,372 q16,-8 22,-22"/>
+    </g>
+  </svg>
+
+  <!-- candles flanking -->
+  <svg style="position:absolute;left:max(6%,calc(50% - 320px));bottom:13%;width:46px;z-index:4;pointer-events:none" viewBox="0 0 60 140">
+    <defs><radialGradient id="cg1" cx="50%" cy="40%" r="50%"><stop offset="0%" stop-color="#f4dca0" stop-opacity="0.9"/><stop offset="100%" stop-color="#f4dca0" stop-opacity="0"/></radialGradient></defs>
+    <ellipse cx="30" cy="40" rx="26" ry="34" fill="url(#cg1)" style="opacity:var(--glow)"/>
+    <rect x="22" y="62" width="16" height="66" fill="none" stroke="var(--brass)" stroke-width="1.4"/>
+    <line x1="30" y1="62" x2="30" y2="54" stroke="var(--olive)" stroke-width="1.4"/>
+    <g style="transform-origin:30px 48px;animation:flicker 2.6s ease-in-out infinite">
+      <path d="M30,28 C40,42 37,54 30,54 C23,54 20,42 30,28 Z" fill="var(--brass)" opacity="0.85"/>
+      <path d="M30,38 C35,45 33,52 30,52 C27,52 25,46 30,38 Z" fill="#f4dca0"/>
+    </g>
+  </svg>
+  <svg style="position:absolute;right:max(6%,calc(50% - 320px));bottom:13%;width:46px;z-index:4;pointer-events:none" viewBox="0 0 60 140">
+    <defs><radialGradient id="cg2" cx="50%" cy="40%" r="50%"><stop offset="0%" stop-color="#f4dca0" stop-opacity="0.9"/><stop offset="100%" stop-color="#f4dca0" stop-opacity="0"/></radialGradient></defs>
+    <ellipse cx="30" cy="40" rx="26" ry="34" fill="url(#cg2)" style="opacity:var(--glow)"/>
+    <rect x="22" y="62" width="16" height="66" fill="none" stroke="var(--brass)" stroke-width="1.4"/>
+    <line x1="30" y1="62" x2="30" y2="54" stroke="var(--olive)" stroke-width="1.4"/>
+    <g style="transform-origin:30px 48px;animation:flicker 2.9s ease-in-out infinite .4s">
+      <path d="M30,28 C40,42 37,54 30,54 C23,54 20,42 30,28 Z" fill="var(--brass)" opacity="0.85"/>
+      <path d="M30,38 C35,45 33,52 30,52 C27,52 25,46 30,38 Z" fill="#f4dca0"/>
+    </g>
+  </svg>
+
+  <!-- hero content -->
+  <div style="position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;max-width:760px">
+    <p data-i18n="hero.eyebrow" style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:12.5px;font-weight:400;letter-spacing:.36em;text-transform:uppercase;color:var(--brass);margin:0 0 26px;animation:reveal 1s ease .1s both">Together with our families</p>
+    <h1 style="margin:0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:300;line-height:.92;color:var(--ink);letter-spacing:.012em">
+      <span data-i18n="hero.n1" style="display:block;font-size:clamp(52px,11vw,140px);animation:reveal 1.1s ease .2s both">Ekaterina</span>
+      <span style="display:block;font-style:italic;font-weight:300;color:var(--accent);font-size:clamp(26px,5vw,62px);margin:.04em 0;animation:reveal 1.1s ease .34s both">&amp;</span>
+      <span data-i18n="hero.n2" style="display:block;font-size:clamp(52px,11vw,140px);animation:reveal 1.1s ease .46s both">Norayr</span>
+    </h1>
+    <p data-i18n="hero.tagline" style="font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-style:italic;font-weight:400;font-size:clamp(19px,2.5vw,32px);color:var(--ink-soft);letter-spacing:.05em;margin:22px 0 0;animation:reveal 1.1s ease .6s both">The Long Way Home</p>
+
+    <div style="display:flex;flex-direction:column;align-items:center;gap:7px;margin-top:30px;animation:reveal 1.1s ease .74s both">
+      <p data-i18n="hero.date" style="margin:0;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:12.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink)">Sunday · 6 September 2026</p>
+      <p data-i18n="hero.venue" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:16px;color:var(--ink-soft);letter-spacing:.02em">Vagharshyan Garden · Saghmosavan, Armenia</p>
+    </div>
+    <p data-i18n="hero.line" style="font-family:'EB Garamond','Noto Serif Armenian',serif;font-style:italic;font-size:clamp(15px,1.5vw,18px);color:var(--ink-soft);max-width:32ch;margin:18px auto 0;opacity:.86;animation:reveal 1.1s ease .86s both">Above the Kasakh Gorge, where the road finally leads home.</p>
+
+    <!-- countdown -->
+    <div style="margin-top:clamp(30px,5vh,52px);display:flex;flex-direction:column;align-items:center;gap:18px;animation:reveal 1.1s ease 1s both">
+      <div style="display:flex;align-items:center;gap:15px;color:var(--brass)">
+        <div style="width:clamp(22px,7vw,64px);height:1px;background:var(--brass);opacity:.5"></div>
+        <span data-i18n="hero.until" style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.32em;text-transform:uppercase">Until we gather</span>
+        <div style="width:clamp(22px,7vw,64px);height:1px;background:var(--brass);opacity:.5"></div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:clamp(13px,3vw,38px)">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:9px">
+          <span ref="{{ daysRef }}" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(42px,6vw,78px);line-height:.86;color:var(--ink);font-variant-numeric:tabular-nums">00</span>
+          <span data-i18n="cd.days" style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--brass)">Days</span>
+        </div>
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(34px,4.6vw,60px);line-height:1;color:var(--brass);opacity:.4">:</span>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:9px">
+          <span ref="{{ hoursRef }}" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(42px,6vw,78px);line-height:.86;color:var(--ink);font-variant-numeric:tabular-nums">00</span>
+          <span data-i18n="cd.hours" style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--brass)">Hours</span>
+        </div>
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(34px,4.6vw,60px);line-height:1;color:var(--brass);opacity:.4">:</span>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:9px">
+          <span ref="{{ minsRef }}" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(42px,6vw,78px);line-height:.86;color:var(--ink);font-variant-numeric:tabular-nums">00</span>
+          <span data-i18n="cd.minutes" style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--brass)">Minutes</span>
+        </div>
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(34px,4.6vw,60px);line-height:1;color:var(--brass);opacity:.4">:</span>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:9px">
+          <span ref="{{ secsRef }}" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(42px,6vw,78px);line-height:.86;color:var(--accent);font-variant-numeric:tabular-nums">00</span>
+          <span data-i18n="cd.seconds" style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--brass)">Seconds</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- scroll cue -->
+  <div style="position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:9px">
+    <span data-i18n="hero.scroll" style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--brass)">Scroll</span>
+    <div style="width:1px;height:30px;background:linear-gradient(var(--brass),transparent);animation:scrollcue 2.2s ease-in-out infinite"></div>
+  </div>
+</header>
+
+<!-- ============ EVENT ESSENTIALS ============ -->
+<section id="essentials" style="position:relative;padding:clamp(86px,12vh,148px) clamp(18px,6vw,72px);background:var(--linen2);border-top:1px solid rgba(166,132,63,.18)">
+  <div style="width:100%;max-width:1180px;margin:0 auto">
+    <div data-reveal style="text-align:center;margin-bottom:clamp(44px,6vh,74px)">
+      <p data-i18n="ess.eyebrow" style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--brass);margin:0 0 18px">Event essentials</p>
+      <h2 data-i18n="ess.title" style="margin:0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:400;font-size:clamp(36px,5.2vw,68px);line-height:1.04;color:var(--ink)">The essentials</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:clamp(30px,5vw,68px);align-items:center">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,4vw,48px) clamp(26px,3vw,40px)">
+        <div data-reveal>
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="var(--cognac)" stroke-width="1.3" style="margin-bottom:14px"><rect x="4" y="6" width="22" height="20" rx="2"/><path d="M4 11 H26 M10 3 V8 M20 3 V8"/><circle cx="15" cy="18" r="2.2" fill="var(--accent)" stroke="none"/></svg>
+          <p data-i18n="ess.dateLabel" style="margin:0 0 6px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--brass)">Date</p>
+          <p data-i18n="ess.dateVal" style="margin:0 0 4px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(22px,2.4vw,28px);color:var(--ink);line-height:1.16">Sunday, 6 September 2026</p>
+          <p data-i18n="ess.dateSub" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:16px;color:var(--ink-soft)">Ceremony at 17:15</p>
+        </div>
+        <div data-reveal data-delay="80">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="var(--cognac)" stroke-width="1.3" style="margin-bottom:14px"><path d="M15 27 C7 19 5 14 5 11 a10 10 0 0 1 20 0 C25 14 23 19 15 27 Z"/><circle cx="15" cy="11" r="3.4" fill="var(--accent)" stroke="none"/></svg>
+          <p data-i18n="ess.venueLabel" style="margin:0 0 6px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--brass)">Venue</p>
+          <p data-i18n="ess.venueVal" style="margin:0 0 4px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(22px,2.4vw,28px);color:var(--ink);line-height:1.16">Vagharshyan Garden</p>
+          <p data-i18n="ess.venueSub" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:16px;color:var(--ink-soft)">Saghmosavan, Armenia</p>
+        </div>
+        <div data-reveal data-delay="160">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="var(--cognac)" stroke-width="1.3" style="margin-bottom:14px"><path d="M3 24 C9 20 11 12 15 12 C19 12 21 20 27 24"/><path d="M15 12 V5 M15 7 C13 6 11 5 11 5 M15 7 C17 6 19 5 19 5" stroke="var(--accent)"/></svg>
+          <p data-i18n="ess.setLabel" style="margin:0 0 6px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--brass)">Setting</p>
+          <p data-i18n="ess.setVal" style="margin:0 0 4px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(22px,2.4vw,28px);color:var(--ink);line-height:1.16">An outdoor garden above the Kasakh Gorge</p>
+          <p data-i18n="ess.setSub" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:16px;color:var(--ink-soft)">Views toward Saghmosavank monastery and Mt. Aragats</p>
+        </div>
+        <div data-reveal data-delay="240">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="var(--cognac)" stroke-width="1.3" style="margin-bottom:14px"><path d="M4 19 h22 M6 19 l2-7 a2 2 0 0 1 2-1.4 h10 a2 2 0 0 1 2 1.4 l2 7"/><circle cx="9" cy="22" r="2.2"/><circle cx="21" cy="22" r="2.2"/></svg>
+          <p data-i18n="ess.travLabel" style="margin:0 0 6px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--brass)">From Yerevan</p>
+          <p data-i18n="ess.travVal" style="margin:0 0 4px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(22px,2.4vw,28px);color:var(--ink);line-height:1.16">About 40 minutes by car</p>
+          <p data-i18n="ess.travSub" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:16px;color:var(--ink-soft)">Taxis recommended for arrival</p>
+        </div>
+      </div>
+      <div data-reveal data-delay="120" style="position:relative;padding:14px">
+        <div style="position:absolute;inset:0;border:1px solid rgba(166,132,63,.34)"></div>
+        <div style="position:absolute;top:-1px;left:-1px;width:18px;height:18px;border-top:1px solid var(--brass);border-left:1px solid var(--brass)"></div>
+        <div style="position:absolute;top:-1px;right:-1px;width:18px;height:18px;border-top:1px solid var(--brass);border-right:1px solid var(--brass)"></div>
+        <div style="position:absolute;bottom:-1px;left:-1px;width:18px;height:18px;border-bottom:1px solid var(--brass);border-left:1px solid var(--brass)"></div>
+        <div style="position:absolute;bottom:-1px;right:-1px;width:18px;height:18px;border-bottom:1px solid var(--brass);border-right:1px solid var(--brass)"></div>
+        <image-slot id="lwh-garden" shape="rounded" radius="1" fit="cover" placeholder="Drop a photo of the garden / gorge" style="display:block;width:100%;height:clamp(360px,48vh,520px)"></image-slot>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DAY TIMELINE (dark, candlelit) ============ -->
+<section id="timeline" style="position:relative;padding:clamp(90px,13vh,160px) clamp(18px,6vw,72px);background:var(--olive-deep);overflow:hidden">
+  <!-- stars -->
+  <div data-parallax data-speed="0.06" style="position:absolute;inset:0;pointer-events:none">
+    <svg width="100%" height="100%" preserveAspectRatio="none" style="position:absolute;inset:0">
+      <g fill="var(--cream)">
+        <circle cx="8%" cy="14%" r="1.4" style="animation:twinkle 4s ease-in-out infinite"/>
+        <circle cx="18%" cy="30%" r="1" style="animation:twinkle 5s ease-in-out infinite .6s"/>
+        <circle cx="26%" cy="10%" r="1.2" style="animation:twinkle 3.4s ease-in-out infinite 1s"/>
+        <circle cx="40%" cy="20%" r="1" style="animation:twinkle 4.6s ease-in-out infinite .3s"/>
+        <circle cx="58%" cy="12%" r="1.5" style="animation:twinkle 3.8s ease-in-out infinite .9s"/>
+        <circle cx="70%" cy="26%" r="1" style="animation:twinkle 5.2s ease-in-out infinite .2s"/>
+        <circle cx="82%" cy="14%" r="1.3" style="animation:twinkle 4.2s ease-in-out infinite 1.3s"/>
+        <circle cx="92%" cy="32%" r="1" style="animation:twinkle 4.8s ease-in-out infinite .5s"/>
+        <circle cx="48%" cy="8%" r="1.1" style="animation:twinkle 4s ease-in-out infinite 1.6s"/>
+        <circle cx="34%" cy="34%" r="1" style="animation:twinkle 5.4s ease-in-out infinite .8s"/>
+      </g>
+    </svg>
+  </div>
+  <!-- faint gorge silhouette bottom -->
+  <svg viewBox="0 0 1440 200" preserveAspectRatio="xMidYMax slice" width="100%" height="200" style="position:absolute;left:0;right:0;bottom:0;opacity:.4;pointer-events:none"><path d="M0,200 C180,150 320,170 520,140 C720,112 760,150 920,138 C1080,126 1200,150 1440,120 L1440,200 Z" fill="#222512"/></svg>
+
+  <div style="position:relative;z-index:2;width:100%;max-width:900px;margin:0 auto">
+    <div data-reveal style="text-align:center;margin-bottom:clamp(48px,7vh,84px)">
+      <p data-i18n="tl.eyebrow" style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--brass);margin:0 0 18px">The day</p>
+      <h2 data-i18n="tl.title" style="margin:0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:400;font-size:clamp(36px,5.2vw,68px);line-height:1.04;color:var(--cream)">How the evening unfolds</h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column">
+      <!-- row -->
+      <div data-reveal style="display:grid;grid-template-columns:clamp(58px,12vw,104px) 38px 1fr;align-items:start">
+        <div style="text-align:right;padding-right:14px;font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.5vw,30px);color:var(--brass);line-height:1.1;padding-top:1px">16:30</div>
+        <div style="position:relative;display:flex;justify-content:center">
+          <div style="width:13px;height:13px;border-radius:50%;border:1.5px solid var(--brass);background:var(--olive-deep);z-index:2;margin-top:4px;box-shadow:0 0 0 5px rgba(166,132,63,.12)"></div>
+          <div data-line style="position:absolute;top:18px;bottom:-4px;width:0;border-left:1.5px dashed rgba(166,132,63,.5);transform:scaleY(0);transform-origin:top"></div>
+        </div>
+        <div style="padding:0 0 clamp(34px,5vh,58px) clamp(10px,2vw,20px)">
+          <h3 data-i18n="tl.h1" style="margin:0 0 6px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:500;font-size:clamp(22px,2.5vw,29px);color:var(--cream)">Guest arrival</h3>
+          <p data-i18n="tl.d1" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:clamp(15px,1.5vw,18px);color:var(--cream-soft);line-height:1.55;max-width:46ch">Welcome drinks, food, lounge seating, and time to settle in.</p>
+        </div>
+      </div>
+      <div data-reveal data-delay="80" style="display:grid;grid-template-columns:clamp(58px,12vw,104px) 38px 1fr;align-items:start">
+        <div style="text-align:right;padding-right:14px;font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.5vw,30px);color:var(--brass);line-height:1.1;padding-top:1px">17:00</div>
+        <div style="position:relative;display:flex;justify-content:center">
+          <div style="width:13px;height:13px;border-radius:50%;border:1.5px solid var(--brass);background:var(--olive-deep);z-index:2;margin-top:4px;box-shadow:0 0 0 5px rgba(166,132,63,.12)"></div>
+          <div data-line style="position:absolute;top:18px;bottom:-4px;width:0;border-left:1.5px dashed rgba(166,132,63,.5);transform:scaleY(0);transform-origin:top"></div>
+        </div>
+        <div style="padding:0 0 clamp(34px,5vh,58px) clamp(10px,2vw,20px)">
+          <h3 data-i18n="tl.h2" style="margin:0 0 6px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:500;font-size:clamp(22px,2.5vw,29px);color:var(--cream)">Bride &amp; groom arrival</h3>
+        </div>
+      </div>
+      <div data-reveal data-delay="160" style="display:grid;grid-template-columns:clamp(58px,12vw,104px) 38px 1fr;align-items:start">
+        <div style="text-align:right;padding-right:14px;font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.5vw,30px);color:var(--brass);line-height:1.1;padding-top:1px">17:15</div>
+        <div style="position:relative;display:flex;justify-content:center">
+          <div style="width:13px;height:13px;border-radius:50%;border:1.5px solid var(--accent);background:var(--accent);z-index:2;margin-top:4px;box-shadow:0 0 0 5px rgba(110,42,53,.22)"></div>
+          <div data-line style="position:absolute;top:18px;bottom:-4px;width:0;border-left:1.5px dashed rgba(166,132,63,.5);transform:scaleY(0);transform-origin:top"></div>
+        </div>
+        <div style="padding:0 0 clamp(34px,5vh,58px) clamp(10px,2vw,20px)">
+          <h3 data-i18n="tl.h3" style="margin:0 0 6px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:500;font-size:clamp(24px,2.8vw,33px);color:var(--cream)">Ceremony</h3>
+          <p data-i18n="tl.d3" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:clamp(15px,1.5vw,18px);color:var(--cream-soft);line-height:1.55;max-width:46ch">In Armenian, Russian, and English.</p>
+        </div>
+      </div>
+      <div data-reveal data-delay="80" style="display:grid;grid-template-columns:clamp(58px,12vw,104px) 38px 1fr;align-items:start">
+        <div style="text-align:right;padding-right:14px;font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.5vw,30px);color:var(--brass);line-height:1.1;padding-top:1px">18:00</div>
+        <div style="position:relative;display:flex;justify-content:center">
+          <div style="width:13px;height:13px;border-radius:50%;border:1.5px solid var(--brass);background:var(--olive-deep);z-index:2;margin-top:4px;box-shadow:0 0 0 5px rgba(166,132,63,.12)"></div>
+          <div data-line style="position:absolute;top:18px;bottom:-4px;width:0;border-left:1.5px dashed rgba(166,132,63,.5);transform:scaleY(0);transform-origin:top"></div>
+        </div>
+        <div style="padding:0 0 clamp(34px,5vh,58px) clamp(10px,2vw,20px)">
+          <h3 data-i18n="tl.h4" style="margin:0 0 6px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:500;font-size:clamp(22px,2.5vw,29px);color:var(--cream)">Dinner, drinks &amp; dancing</h3>
+          <p data-i18n="tl.d4" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:clamp(15px,1.5vw,18px);color:var(--cream-soft);line-height:1.55;max-width:46ch">The party begins.</p>
+        </div>
+      </div>
+      <div data-reveal data-delay="160" style="display:grid;grid-template-columns:clamp(58px,12vw,104px) 38px 1fr;align-items:start">
+        <div style="text-align:right;padding-right:14px;font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.5vw,30px);color:var(--brass);line-height:1.1;padding-top:1px">23:00</div>
+        <div style="position:relative;display:flex;justify-content:center">
+          <div style="width:13px;height:13px;border-radius:50%;border:1.5px solid var(--brass);background:var(--olive-deep);z-index:2;margin-top:4px;box-shadow:0 0 0 5px rgba(166,132,63,.12)"></div>
+          <div data-line style="position:absolute;top:18px;bottom:-4px;width:0;border-left:1.5px dashed rgba(166,132,63,.5);transform:scaleY(0);transform-origin:top"></div>
+        </div>
+        <div style="padding:0 0 clamp(34px,5vh,58px) clamp(10px,2vw,20px)">
+          <h3 data-i18n="tl.h5" style="margin:0 0 6px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:500;font-size:clamp(22px,2.5vw,29px);color:var(--cream)">First Sprinter home</h3>
+          <p data-i18n="tl.d5" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:clamp(15px,1.5vw,18px);color:var(--cream-soft);line-height:1.55;max-width:46ch">First return coach to Yerevan.</p>
+        </div>
+      </div>
+      <div data-reveal data-delay="240" style="display:grid;grid-template-columns:clamp(58px,12vw,104px) 38px 1fr;align-items:start">
+        <div style="text-align:right;padding-right:14px;font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.5vw,30px);color:var(--brass);line-height:1.1;padding-top:1px">00:00</div>
+        <div style="position:relative;display:flex;justify-content:center">
+          <div style="width:13px;height:13px;border-radius:50%;border:1.5px solid var(--brass);background:var(--olive-deep);z-index:2;margin-top:4px;box-shadow:0 0 0 5px rgba(166,132,63,.12)"></div>
+        </div>
+        <div style="padding:0 0 0 clamp(10px,2vw,20px)">
+          <h3 data-i18n="tl.h6" style="margin:0 0 6px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-style:italic;font-weight:500;font-size:clamp(22px,2.5vw,29px);color:var(--brass)">The long way home</h3>
+          <p data-i18n="tl.d6" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:clamp(15px,1.5vw,18px);color:var(--cream-soft);line-height:1.55;max-width:46ch">Final Sprinter to Yerevan.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT TO EXPECT ============ -->
+<section id="celebration" style="position:relative;padding:clamp(86px,12vh,148px) clamp(18px,6vw,72px);background:var(--stone)">
+  <div style="width:100%;max-width:1180px;margin:0 auto">
+    <div data-reveal style="text-align:center;margin-bottom:clamp(44px,6vh,74px)">
+      <p data-i18n="exp.eyebrow" style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--cognac);margin:0 0 18px">The celebration</p>
+      <h2 data-i18n="exp.title" style="margin:0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:400;font-size:clamp(36px,5.2vw,68px);line-height:1.04;color:var(--ink)">What to expect</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,272px));justify-content:center;gap:clamp(13px,1.5vw,20px)">
+      <div data-reveal style="padding:30px 26px;border:1px solid rgba(140,90,56,.26);background:rgba(255,251,242,.4);transition:transform .5s ease,box-shadow .5s ease,border-color .5s ease" style-hover="transform:translateY(-5px);box-shadow:0 18px 40px -24px rgba(60,64,37,.4);border-color:var(--cognac)">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="var(--cognac)" stroke-width="1.2" style="margin-bottom:16px"><path d="M9 4 h16 M11 4 c0 7 2 9 6 9 s6-2 6-9 M17 13 v13 M11 28 h12"/><path d="M11.5 8 h13" stroke="var(--accent)"/></svg>
+        <h3 data-i18n="exp.t1" style="margin:0 0 7px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(21px,2.2vw,25px);color:var(--ink)">Garden &amp; lounges</h3>
+        <p data-i18n="exp.d1" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:15.5px;color:var(--ink-soft);line-height:1.5">Outdoor garden celebration with lounge areas and quieter corners.</p>
+      </div>
+      <div data-reveal data-delay="60" style="padding:30px 26px;border:1px solid rgba(140,90,56,.26);background:rgba(255,251,242,.4);transition:transform .5s ease,box-shadow .5s ease,border-color .5s ease" style-hover="transform:translateY(-5px);box-shadow:0 18px 40px -24px rgba(60,64,37,.4);border-color:var(--cognac)">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="var(--cognac)" stroke-width="1.2" style="margin-bottom:16px"><path d="M6 7 v6 a4 4 0 0 0 8 0 V7 M10 13 v14 M6 27 h8"/><path d="M24 7 c-3 0-4 4-4 8 h8 c0-4-1-8-4-8 Z M24 15 v12 M20 27 h8" stroke="var(--accent)"/></svg>
+        <h3 data-i18n="exp.t2" style="margin:0 0 7px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(21px,2.2vw,25px);color:var(--ink)">Food &amp; traditions</h3>
+        <p data-i18n="exp.d2" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:15.5px;color:var(--ink-soft);line-height:1.5">Armenian and Russian food, drinks, music, and traditions.</p>
+      </div>
+      <div data-reveal data-delay="60" style="padding:30px 26px;border:1px solid rgba(140,90,56,.26);background:rgba(255,251,242,.4);transition:transform .5s ease,box-shadow .5s ease,border-color .5s ease" style-hover="transform:translateY(-5px);box-shadow:0 18px 40px -24px rgba(60,64,37,.4);border-color:var(--cognac)">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="var(--cognac)" stroke-width="1.2" style="margin-bottom:16px"><circle cx="10" cy="22" r="4"/><circle cx="24" cy="22" r="4" stroke="var(--accent)"/><path d="M10 18 V8 l14-2 v12 M14 9 l10-1.4"/></svg>
+        <h3 data-i18n="exp.t6" style="margin:0 0 7px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(21px,2.2vw,25px);color:var(--ink)">Lawn games</h3>
+        <p data-i18n="exp.d6" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:15.5px;color:var(--ink-soft);line-height:1.5">Relaxed games and quiet corners around the garden.</p>
+      </div>
+      <div data-reveal data-delay="120" style="padding:30px 26px;border:1px solid rgba(140,90,56,.26);background:rgba(255,251,242,.4);transition:transform .5s ease,box-shadow .5s ease,border-color .5s ease" style-hover="transform:translateY(-5px);box-shadow:0 18px 40px -24px rgba(60,64,37,.4);border-color:var(--cognac)">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="var(--cognac)" stroke-width="1.2" style="margin-bottom:16px"><path d="M5 8 h16 v10 H12 l-4 4 v-4 H5 Z"/><path d="M14 17 h15 v9 h-3 v4 l-4-4 h-8 Z" stroke="var(--accent)"/></svg>
+        <h3 data-i18n="exp.t7" style="margin:0 0 7px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(21px,2.2vw,25px);color:var(--ink)">Trilingual ceremony</h3>
+        <p data-i18n="exp.d7" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:15.5px;color:var(--ink-soft);line-height:1.5">Ceremony elements in Armenian, Russian, and English.</p>
+      </div>
+      <div data-reveal data-delay="180" style="padding:30px 26px;border:1px solid rgba(140,90,56,.26);background:rgba(255,251,242,.4);transition:transform .5s ease,box-shadow .5s ease,border-color .5s ease" style-hover="transform:translateY(-5px);box-shadow:0 18px 40px -24px rgba(60,64,37,.4);border-color:var(--cognac)">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="var(--cognac)" stroke-width="1.2" style="margin-bottom:16px"><path d="M14 6 c-2 5-2 8 0 11 M20 6 c-2 5-2 8 0 11" stroke="var(--accent)"/><path d="M11 17 h12 l-1 11 h-10 Z M14 28 v4 M20 28 v4"/></svg>
+        <h3 data-i18n="exp.t8" style="margin:0 0 7px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(21px,2.2vw,25px);color:var(--ink)">Candlelight &amp; stars</h3>
+        <p data-i18n="exp.d8" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:15.5px;color:var(--ink-soft);line-height:1.5">Dinner, dancing, candlelit gorge views, and stargazing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GETTING THERE & BACK ============ -->
+<section id="travel" style="position:relative;padding:clamp(86px,12vh,148px) clamp(18px,6vw,72px);background:var(--linen)">
+  <div style="width:100%;max-width:1180px;margin:0 auto">
+    <div data-reveal style="text-align:center;margin-bottom:clamp(44px,6vh,74px)">
+      <p data-i18n="trv.eyebrow" style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--brass);margin:0 0 18px">Getting there &amp; back</p>
+      <h2 data-i18n="trv.title" style="margin:0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:400;font-size:clamp(36px,5.2vw,68px);line-height:1.04;color:var(--ink)">The journey</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(30px,5vw,64px);align-items:center;margin-bottom:clamp(40px,6vh,64px)">
+      <div data-reveal style="display:flex;flex-direction:column;gap:clamp(28px,4vh,40px)">
+        <div style="display:flex;gap:18px;align-items:flex-start">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="var(--cognac)" stroke-width="1.3" style="flex:none;margin-top:2px"><path d="M5 22 h24 M7 22 l2-8 a2.4 2.4 0 0 1 2.3-1.7 h11.4 a2.4 2.4 0 0 1 2.3 1.7 l2 8"/><circle cx="11" cy="25" r="2.4"/><circle cx="23" cy="25" r="2.4"/><path d="M14 8 h6 l1 4 h-8 Z" stroke="var(--accent)"/></svg>
+          <div>
+            <h3 data-i18n="trv.thereT" style="margin:0 0 6px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(24px,2.6vw,30px);color:var(--ink)">Arrive by taxi</h3>
+            <p data-i18n="trv.thereD" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:clamp(16px,1.6vw,18px);color:var(--ink-soft);line-height:1.55;max-width:42ch">Guests can arrive by taxi — about 40 minutes from Yerevan.</p>
+          </div>
+        </div>
+        <div style="height:1px;background:rgba(166,132,63,.25)"></div>
+        <div style="display:flex;gap:18px;align-items:flex-start">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="var(--cognac)" stroke-width="1.3" style="flex:none;margin-top:2px"><rect x="4" y="9" width="26" height="14" rx="2"/><path d="M4 18 h26 M9 23 v3 M25 23 v3"/><circle cx="10" cy="18" r="1.6"/><circle cx="24" cy="18" r="1.6"/><path d="M8 13 h18" stroke="var(--accent)"/></svg>
+          <div>
+            <h3 data-i18n="trv.backT" style="margin:0 0 6px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(24px,2.6vw,30px);color:var(--ink)">Sprinters home</h3>
+            <p data-i18n="trv.backD" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:clamp(16px,1.6vw,18px);color:var(--ink-soft);line-height:1.55;max-width:42ch">Sprinters return to Yerevan at 23:00 and 00:00.</p>
+          </div>
+        </div>
+      </div>
+      <!-- live map -->
+      <div data-reveal data-delay="120" style="position:relative">
+        <div style="position:relative;padding:14px">
+          <div style="position:absolute;inset:0;border:1px solid rgba(166,132,63,.34);pointer-events:none;z-index:3"></div>
+          <div style="position:absolute;top:-1px;left:-1px;width:18px;height:18px;border-top:1px solid var(--brass);border-left:1px solid var(--brass);pointer-events:none;z-index:3"></div>
+          <div style="position:absolute;top:-1px;right:-1px;width:18px;height:18px;border-top:1px solid var(--brass);border-right:1px solid var(--brass);pointer-events:none;z-index:3"></div>
+          <div style="position:absolute;bottom:-1px;left:-1px;width:18px;height:18px;border-bottom:1px solid var(--brass);border-left:1px solid var(--brass);pointer-events:none;z-index:3"></div>
+          <div style="position:absolute;bottom:-1px;right:-1px;width:18px;height:18px;border-bottom:1px solid var(--brass);border-right:1px solid var(--brass);pointer-events:none;z-index:3"></div>
+          <div style="position:relative;overflow:hidden;background:var(--linen2)">
+            <iframe title="Map from Yerevan to Vagharshyan Garden" src="https://www.openstreetmap.org/export/embed.html?bbox=44.30%2C40.12%2C44.62%2C40.40&amp;layer=mapnik&amp;marker=40.3289%2C44.3964" loading="lazy" style="display:block;width:100%;height:clamp(340px,46vh,480px);border:0;filter:sepia(0.42) saturate(0.72) hue-rotate(-8deg) brightness(1.04) contrast(0.92)"></iframe>
+            <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(125% 120% at 50% 28%, rgba(166,132,63,0.05), rgba(60,64,37,0.17));mix-blend-mode:multiply"></div>
+            <div style="position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 60px rgba(51,39,31,0.22)"></div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px 18px;margin-top:18px">
+          <span style="display:inline-flex;align-items:center;gap:8px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink)"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent)"></span><span data-i18n="trv.mapYerevan">YEREVAN</span></span>
+          <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--cognac)" data-i18n="trv.mapTime">≈ 40 minutes</span>
+          <span style="display:inline-flex;align-items:center;gap:8px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink)"><span style="width:7px;height:7px;background:var(--olive)"></span><span data-i18n="trv.mapVenue">THE GARDEN</span></span>
+          <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Saghmosavank+Monastery%2C+Armenia" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);text-decoration:none;border-bottom:1px solid rgba(166,132,63,.5);padding-bottom:2px;transition:border-color .35s ease" style-hover="border-color:var(--brass)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 h13 M12 5 l7 7 -7 7"/></svg><span data-i18n="trv.directions">Open directions</span></a>
+        </div>
+      </div>
+    </div>
+    <!-- reminder callout -->
+    <div data-reveal style="position:relative;display:flex;gap:clamp(18px,3vw,30px);align-items:center;padding:clamp(26px,4vw,40px);background:rgba(110,42,53,.05);border:1px solid rgba(110,42,53,.28)">
+      <svg width="76" height="76" viewBox="0 0 76 76" style="flex:none" fill="none"><circle cx="38" cy="38" r="30" fill="rgba(110,42,53,.1)" stroke="var(--wine)" stroke-width="1.2"/><circle cx="38" cy="38" r="24" fill="none" stroke="var(--wine)" stroke-width="0.8" stroke-dasharray="2 3" opacity="0.6"/><text x="38" y="34" text-anchor="middle" style="font-family:'Cormorant Garamond',serif;font-size:20px;fill:var(--wine)">E&amp;N</text><path d="M28 44 q10 8 20 0" stroke="var(--wine)" stroke-width="1" fill="none"/></svg>
+      <div>
+        <h3 data-i18n="trv.remT" style="margin:0 0 8px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-style:italic;font-size:clamp(21px,2.3vw,27px);color:var(--wine)">A friendly reminder</h3>
+        <p data-i18n="trv.remD" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:clamp(16px,1.6vw,18.5px);color:var(--ink);line-height:1.55;max-width:64ch">Please don't drink and drive. We have Sprinters for a reason — and they are much better at going home than you will be after the bar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GUEST CONTACTS ============ -->
+<section id="contacts" style="position:relative;padding:clamp(86px,12vh,148px) clamp(18px,6vw,72px);background:var(--leather);overflow:hidden">
+  <div style="position:absolute;top:-40px;right:-30px;opacity:.16;pointer-events:none"><svg width="240" height="240" viewBox="0 0 240 240" fill="none" stroke="var(--brass)" stroke-width="1"><path d="M40 200 C40 120 90 70 120 40 C150 70 200 120 200 200" /><path d="M120 40 C100 60 96 80 120 96 C144 80 140 60 120 40"/></svg></div>
+  <div style="position:relative;z-index:2;width:100%;max-width:1000px;margin:0 auto">
+    <div data-reveal style="text-align:center;margin-bottom:clamp(40px,6vh,64px)">
+      <p data-i18n="con.eyebrow" style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--brass);margin:0 0 18px">Questions?</p>
+      <h2 data-i18n="con.title" style="margin:0 0 16px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:400;font-size:clamp(36px,5.2vw,68px);line-height:1.04;color:var(--cream)">Your hosts</h2>
+      <p data-i18n="con.intro" style="margin:0 auto;font-family:'EB Garamond','Noto Serif Armenian',serif;font-style:italic;font-size:clamp(16px,1.7vw,19px);color:var(--cream-soft);max-width:46ch">For all guest questions — practical and organisational.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(20px,3vw,32px)">
+      <div data-reveal style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(30px,4vw,44px) 28px;border:1px solid rgba(166,132,63,.36);background:rgba(241,233,216,.04)">
+        <image-slot id="lwh-ksenia" shape="circle" fit="cover" placeholder="Photo" style="display:block;width:96px;height:96px;margin-bottom:20px"></image-slot>
+        <h3 data-i18n="con.n1" style="margin:0 0 4px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(26px,3vw,34px);color:var(--cream)">Ksenia</h3>
+        <p data-i18n="con.r1" style="margin:0 0 22px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass)">Guest coordinator</p>
+        <a href="https://t.me/Kseniya_GY" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:11px;color:var(--cream);text-decoration:none;font-family:'EB Garamond',serif;font-size:17px;padding:9px 4px;border-bottom:1px solid transparent;transition:border-color .4s ease" style-hover="border-color:var(--brass)">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="var(--brass)"><path d="M21.9 4.3c-.3-.2-.6-.2-.9-.1L2.6 11.3c-.6.2-.6 1 0 1.2l4.6 1.5 1.8 5.5c.1.4.6.5.9.2l2.6-2.3 4.7 3.5c.4.3.9.1 1-.4l3.3-15.2c.1-.2 0-.4-.2-.5ZM9.4 14.2l8.1-6.2-6.5 6.9-.2 3.4-1.4-4.1Z"/></svg>
+          <span>@Kseniya_GY</span>
+        </a>
+        <a href="tel:+79082448657" style="display:flex;align-items:center;gap:11px;color:var(--cream-soft);text-decoration:none;font-family:'EB Garamond',serif;font-size:17px;padding:9px 4px;border-bottom:1px solid transparent;transition:border-color .4s ease" style-hover="border-color:var(--brass)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brass)" stroke-width="1.6"><path d="M5 4 h4 l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+          <span>+7 908 244 8657</span>
+        </a>
+      </div>
+      <div data-reveal data-delay="100" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(30px,4vw,44px) 28px;border:1px solid rgba(166,132,63,.36);background:rgba(241,233,216,.04)">
+        <image-slot id="lwh-kristina" shape="circle" fit="cover" placeholder="Photo" style="display:block;width:96px;height:96px;margin-bottom:20px"></image-slot>
+        <h3 data-i18n="con.n2" style="margin:0 0 4px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(26px,3vw,34px);color:var(--cream)">Kristina</h3>
+        <p data-i18n="con.r2" style="margin:0 0 22px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass)">Guest coordinator</p>
+        <a href="https://t.me/svadba_kris" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:11px;color:var(--cream);text-decoration:none;font-family:'EB Garamond',serif;font-size:17px;padding:9px 4px;border-bottom:1px solid transparent;transition:border-color .4s ease" style-hover="border-color:var(--brass)">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="var(--brass)"><path d="M21.9 4.3c-.3-.2-.6-.2-.9-.1L2.6 11.3c-.6.2-.6 1 0 1.2l4.6 1.5 1.8 5.5c.1.4.6.5.9.2l2.6-2.3 4.7 3.5c.4.3.9.1 1-.4l3.3-15.2c.1-.2 0-.4-.2-.5ZM9.4 14.2l8.1-6.2-6.5 6.9-.2 3.4-1.4-4.1Z"/></svg>
+          <span>@svadba_kris</span>
+        </a>
+        <a href="tel:+79124857796" style="display:flex;align-items:center;gap:11px;color:var(--cream-soft);text-decoration:none;font-family:'EB Garamond',serif;font-size:17px;padding:9px 4px;border-bottom:1px solid transparent;transition:border-color .4s ease" style-hover="border-color:var(--brass)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brass)" stroke-width="1.6"><path d="M5 4 h4 l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+          <span>+7 912 485 7796</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer style="position:relative;padding:clamp(70px,10vh,110px) clamp(18px,6vw,72px) clamp(40px,6vh,60px);background:var(--olive-deep);text-align:center;overflow:hidden">
+  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center">
+    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="var(--brass)" stroke-width="1.1" style="margin-bottom:24px"><path d="M14 48 V24 C14 14 22 9 28 6 C34 9 42 14 42 24 V48"/><path d="M28 6 l3 4 l-3 4 l-3-4 Z" fill="var(--brass)" stroke="none" opacity="0.8"/></svg>
+    <p style="margin:0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(30px,4vw,46px);font-weight:300;color:var(--cream);letter-spacing:.02em">Ekaterina <span style="color:var(--accent);font-style:italic">&amp;</span> Norayr</p>
+    <p data-i18n="foot.tagline" style="margin:10px 0 0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-style:italic;font-size:clamp(16px,1.8vw,21px);color:var(--brass);letter-spacing:.06em">The Long Way Home</p>
+    <div style="display:flex;align-items:center;gap:14px;margin:26px 0 0;color:var(--cream-soft)">
+      <div style="width:36px;height:1px;background:var(--brass);opacity:.5"></div>
+      <span style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:12px;letter-spacing:.26em">6 · 09 · 2026</span>
+      <div style="width:36px;height:1px;background:var(--brass);opacity:.5"></div>
+    </div>
+    <p data-i18n="foot.place" style="margin:14px 0 0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:15px;color:var(--cream-soft);opacity:.8">Vagharshyan Garden · Saghmosavan, Armenia</p>
+    <p data-i18n="foot.closing" style="margin:30px 0 0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-style:italic;font-size:clamp(18px,2.2vw,26px);color:var(--cream);max-width:30ch;line-height:1.3">We can't wait to welcome you home.</p>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1024},&quot;timeOfDay&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Dusk&quot;,&quot;Day&quot;],&quot;default&quot;:&quot;Dusk&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Areni wine&quot;,&quot;Cognac&quot;,&quot;Antique brass&quot;],&quot;default&quot;:&quot;Areni wine&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;heroScene&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Gorge &amp; arch&quot;,&quot;Gorge only&quot;,&quot;Arch only&quot;],&quot;default&quot;:&quot;Gorge &amp; arch&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  rootRef = React.createRef();
+  daysRef = React.createRef();
+  hoursRef = React.createRef();
+  minsRef = React.createRef();
+  secsRef = React.createRef();
+
+  dict = {
+    en: {
+      "hero.eyebrow":"Together with our families","hero.n1":"Ekaterina","hero.n2":"Norayr","hero.tagline":"The Long Way Home",
+      "hero.date":"Sunday · 6 September 2026","hero.venue":"Vagharshyan Garden · Saghmosavan, Armenia",
+      "hero.line":"Above the Kasakh Gorge, where the road finally leads home.","hero.until":"Until we gather","hero.scroll":"Scroll",
+      "cd.days":"Days","cd.hours":"Hours","cd.minutes":"Minutes","cd.seconds":"Seconds",
+      "ess.eyebrow":"Event essentials","ess.title":"The essentials",
+      "ess.dateLabel":"Date","ess.dateVal":"Sunday, 6 September 2026","ess.dateSub":"Ceremony at 17:15",
+      "ess.venueLabel":"Venue","ess.venueVal":"Vagharshyan Garden","ess.venueSub":"Saghmosavan, Armenia",
+      "ess.setLabel":"Setting","ess.setVal":"An outdoor garden above the Kasakh Gorge","ess.setSub":"Views toward Saghmosavank monastery and Mt. Aragats",
+      "ess.travLabel":"From Yerevan","ess.travVal":"About 40 minutes by car","ess.travSub":"Taxis recommended for arrival",
+      "tl.eyebrow":"The day","tl.title":"How the evening unfolds",
+      "tl.h1":"Guest arrival","tl.d1":"Welcome drinks, food, lounge seating, and time to settle in.",
+      "tl.h2":"Bride & groom arrival",
+      "tl.h3":"Ceremony","tl.d3":"In Armenian, Russian, and English.",
+      "tl.h4":"Dinner, drinks & dancing","tl.d4":"The party begins.",
+      "tl.h5":"First Sprinter home","tl.d5":"First return coach to Yerevan.",
+      "tl.h6":"The long way home","tl.d6":"Final Sprinter to Yerevan.",
+      "exp.eyebrow":"The celebration","exp.title":"What to expect",
+      "exp.t1":"Garden & lounges","exp.d1":"Outdoor garden celebration with lounge areas and quieter corners.",
+      "exp.t2":"Food & traditions","exp.d2":"Armenian and Russian food, drinks, music, and traditions.",
+      "exp.t3":"Live lavash & Areni wine","exp.d3":"Fresh lavash baked live and an Areni wine tasting.",
+      "exp.t4":"Dumpling station","exp.d4":"Khinkali, pelmeni, and boraki.",
+      "exp.t5":"Signature drinks","exp.d5":"Home and The Long Road.",
+      "exp.t6":"Lawn games","exp.d6":"Relaxed games and quiet corners around the garden.",
+      "exp.t7":"Trilingual ceremony","exp.d7":"Ceremony elements in Armenian, Russian, and English.",
+      "exp.t8":"Candlelight & stars","exp.d8":"Dinner, dancing, candlelit gorge views, and stargazing.",
+      "trv.eyebrow":"Getting there & back","trv.title":"The journey",
+      "trv.thereT":"Arrive by taxi","trv.thereD":"Guests can arrive by taxi — about 40 minutes from Yerevan.",
+      "trv.backT":"Sprinters home","trv.backD":"Sprinters return to Yerevan at 23:00 and 00:00.",
+      "trv.remT":"A friendly reminder","trv.remD":"Please don't drink and drive. We have Sprinters for a reason — and they are much better at going home than you will be after the bar.",
+      "trv.mapYerevan":"YEREVAN","trv.mapVenue":"THE GARDEN","trv.mapTime":"≈ 40 minutes","trv.directions":"Open directions",
+      "con.eyebrow":"Questions?","con.title":"Your hosts","con.intro":"For all guest questions — practical and organisational.",
+      "con.n1":"Ksenia","con.r1":"Guest coordinator","con.n2":"Kristina","con.r2":"Guest coordinator",
+      "foot.tagline":"The Long Way Home","foot.place":"Vagharshyan Garden · Saghmosavan, Armenia","foot.closing":"We can't wait to welcome you home."
+    },
+    ru: {
+      "hero.eyebrow":"Вместе с нашими семьями","hero.n1":"Екатерина","hero.n2":"Норайр","hero.tagline":"Долгая дорога домой",
+      "hero.date":"Воскресенье · 6 сентября 2026","hero.venue":"Сад Вагаршян · Сагмосаван, Армения",
+      "hero.line":"Над ущельем Касах, где дорога наконец ведёт домой.","hero.until":"До праздника","hero.scroll":"Листайте",
+      "cd.days":"Дней","cd.hours":"Часов","cd.minutes":"Минут","cd.seconds":"Секунд",
+      "ess.eyebrow":"Главное о дне","ess.title":"Коротко о главном",
+      "ess.dateLabel":"Дата","ess.dateVal":"Воскресенье, 6 сентября 2026","ess.dateSub":"Церемония в 17:15",
+      "ess.venueLabel":"Место","ess.venueVal":"Сад Вагаршян","ess.venueSub":"Сагмосаван, Армения",
+      "ess.setLabel":"Атмосфера","ess.setVal":"Сад под открытым небом над ущельем Касах","ess.setSub":"С видом на монастырь Сагмосаванк и гору Арагац",
+      "ess.travLabel":"Из Еревана","ess.travVal":"Около 40 минут на машине","ess.travSub":"Удобно добраться на такси",
+      "tl.eyebrow":"День","tl.title":"Как пройдёт вечер",
+      "tl.h1":"Сбор гостей","tl.d1":"Welcome-напитки, угощения, лаунж и время освоиться.",
+      "tl.h2":"Приезд жениха и невесты",
+      "tl.h3":"Церемония","tl.d3":"На армянском, русском и английском.",
+      "tl.h4":"Ужин, напитки и танцы","tl.d4":"Начинается праздник.",
+      "tl.h5":"Первый спринтер домой","tl.d5":"Первый трансфер в Ереван.",
+      "tl.h6":"Долгая дорога домой","tl.d6":"Последний спринтер в Ереван.",
+      "exp.eyebrow":"Праздник","exp.title":"Что вас ждёт",
+      "exp.t1":"Сад и лаунж-зоны","exp.d1":"Праздник в саду с лаунж-зонами и тихими уголками.",
+      "exp.t2":"Кухня и традиции","exp.d2":"Армянская и русская кухня, напитки, музыка и традиции.",
+      "exp.t3":"Лаваш и вино Арени","exp.d3":"Свежий лаваш и дегустация вина Арени.",
+      "exp.t4":"Станция с пельменями","exp.d4":"Хинкали, пельмени и бораки.",
+      "exp.t5":"Авторские напитки","exp.d5":"«Дом» и «Долгая дорога».",
+      "exp.t6":"Игры на лужайке","exp.d6":"Спокойные игры и тихие уголки в саду.",
+      "exp.t7":"Церемония на трёх языках","exp.d7":"Элементы церемонии на армянском, русском и английском.",
+      "exp.t8":"Свечи и звёзды","exp.d8":"Ужин, танцы, виды на ущелье при свечах и звёздное небо.",
+      "trv.eyebrow":"Дорога туда и обратно","trv.title":"Путь",
+      "trv.thereT":"Приезд на такси","trv.thereD":"Гости могут приехать на такси — около 40 минут от Еревана.",
+      "trv.backT":"Спринтеры домой","trv.backD":"Спринтеры отвезут гостей в Ереван в 23:00 и 00:00.",
+      "trv.remT":"Дружеское напоминание","trv.remD":"Пожалуйста, не садитесь за руль нетрезвыми. Для этого есть спринтеры — они доедут до дома гораздо лучше, чем вы после бара.",
+      "trv.mapYerevan":"ЕРЕВАН","trv.mapVenue":"САД","trv.mapTime":"≈ 40 минут","trv.directions":"Построить маршрут",
+      "con.eyebrow":"Вопросы?","con.title":"Ваши координаторы","con.intro":"По всем вопросам гостей — практическим и организационным.",
+      "con.n1":"Ксения","con.r1":"Координатор гостей","con.n2":"Кристина","con.r2":"Координатор гостей",
+      "foot.tagline":"Долгая дорога домой","foot.place":"Сад Вагаршян · Сагмосаван, Армения","foot.closing":"Будем рады встретить вас дома."
+    },
+    hy: {
+      "hero.eyebrow":"Մեր ընտանիքների հետ միասին","hero.n1":"Եկատերինա","hero.n2":"Նորայր","hero.tagline":"Երկար ճանապարհը դեպի տուն",
+      "hero.date":"Կիրակի · 6 սեպտեմբերի 2026","hero.venue":"Վաղարշյան այգի · Սաղմոսավան, Հայաստան",
+      "hero.line":"Քասախի կիրճի վրա, որտեղ ճանապարհը վերջապես տուն է տանում։","hero.until":"Մինչև տոնը","hero.scroll":"Ոլորեք",
+      "cd.days":"Օր","cd.hours":"Ժամ","cd.minutes":"Րոպե","cd.seconds":"Վայրկյան",
+      "ess.eyebrow":"Հիմնական մանրամասներ","ess.title":"Կարևորը",
+      "ess.dateLabel":"Ամսաթիվ","ess.dateVal":"Կիրակի, 6 սեպտեմբերի 2026","ess.dateSub":"Արարողությունը՝ 17:15",
+      "ess.venueLabel":"Վայր","ess.venueVal":"Վաղարշյան այգի","ess.venueSub":"Սաղմոսավան, Հայաստան",
+      "ess.setLabel":"Մթնոլորտ","ess.setVal":"Բացօթյա այգի Քասախի կիրճի վրա","ess.setSub":"Սաղմոսավանք վանքի և Արագած լեռան տեսարանով",
+      "ess.travLabel":"Երևանից","ess.travVal":"Մոտ 40 րոպե մեքենայով","ess.travSub":"Հարմար է գալ տաքսիով",
+      "tl.eyebrow":"Օրը","tl.title":"Ինչպես կանցնի երեկոն",
+      "tl.h1":"Հյուրերի ժամանումը","tl.d1":"Ողջույնի խմիչքներ, հյուրասիրություն, լաունջ և ժամանակ՝ հարմարվելու։",
+      "tl.h2":"Հարսի և փեսայի ժամանումը",
+      "tl.h3":"Արարողություն","tl.d3":"Հայերեն, ռուսերեն և անգլերեն։",
+      "tl.h4":"Ընթրիք, խմիչքներ և պարեր","tl.d4":"Տոնը սկսվում է։",
+      "tl.h5":"Առաջին «Սպրինտերը» տուն","tl.d5":"Առաջին երթուղին դեպի Երևան։",
+      "tl.h6":"Երկար ճանապարհը դեպի տուն","tl.d6":"Վերջին «Սպրինտերը» դեպի Երևան։",
+      "exp.eyebrow":"Տոնը","exp.title":"Ի՞նչ է սպասվում",
+      "exp.t1":"Այգի և լաունջ","exp.d1":"Բացօթյա տոնակատարություն այգում՝ լաունջ գոտիներով և հանգիստ անկյուններով։",
+      "exp.t2":"Խոհանոց և ավանդույթներ","exp.d2":"Հայկական և ռուսական խոհանոց, խմիչքներ, երաժշտություն և ավանդույթներ։",
+      "exp.t3":"Թարմ լավաշ և Արենի գինի","exp.d3":"Տեղում թխվող լավաշ և Արենի գինու համտես։",
+      "exp.t4":"Խմորեղենի անկյուն","exp.d4":"Խինկալի, պելմենի և բորակի։",
+      "exp.t5":"Հատուկ խմիչքներ","exp.d5":"«Տուն» և «Երկար ճանապարհ»։",
+      "exp.t6":"Խաղեր մարգագետնում","exp.d6":"Հանգիստ խաղեր և անկյուններ այգու շուրջ։",
+      "exp.t7":"Եռալեզու արարողություն","exp.d7":"Արարողության տարրեր՝ հայերեն, ռուսերեն և անգլերեն։",
+      "exp.t8":"Մոմեր և աստղեր","exp.d8":"Ընթրիք, պարեր, կիրճի տեսարան մոմերի լույսին և աստղադիտում։",
+      "trv.eyebrow":"Ճանապարհը այնտեղ և հետ","trv.title":"Ճանապարհը",
+      "trv.thereT":"Ժամանում տաքսիով","trv.thereD":"Հյուրերը կարող են գալ տաքսիով՝ մոտ 40 րոպե Երևանից։",
+      "trv.backT":"«Սպրինտերներ» տուն","trv.backD":"«Սպրինտերները» հյուրերին կվերադարձնեն Երևան՝ 23:00 և 00:00։",
+      "trv.remT":"Բարեկամական հիշեցում","trv.remD":"Խնդրում ենք՝ մի՛ նստեք ղեկին հարբած։ Հենց դրա համար ունենք «Սպրինտերներ»՝ նրանք շատ ավելի լավ տուն կհասցնեն, քան դուք բարից հետո։",
+      "trv.mapYerevan":"ԵՐԵՎԱՆ","trv.mapVenue":"ԱՅԳԻ","trv.mapTime":"≈ 40 րոպե","trv.directions":"Բացել երթուղին",
+      "con.eyebrow":"Հարցե՞ր ունեք","con.title":"Ձեր համակարգողները","con.intro":"Հյուրերի բոլոր հարցերով՝ գործնական և կազմակերպչական։",
+      "con.n1":"Քսենիա","con.r1":"Հյուրերի համակարգող","con.n2":"Կրիստինա","con.r2":"Հյուրերի համակարգող",
+      "foot.tagline":"Երկար ճանապարհը դեպի տուն","foot.place":"Վաղարշյան այգի · Սաղմոսավան, Հայաստան","foot.closing":"Անհամբեր սպասում ենք ձեզ տանը դիմավորելու։"
+    }
+  };
+
+  lang = "en";
+  target = new Date("2026-09-06T16:30:00+04:00").getTime();
+
+  componentDidMount() {
+    this.applyTheme();
+    this.updateCountdown();
+    this._timer = setInterval(() => this.updateCountdown(), 1000);
+    this.setupMotion();
+  }
+  componentDidUpdate() {
+    this.applyTheme();
+    this.updateCountdown();
+  }
+  componentWillUnmount() {
+    clearInterval(this._timer);
+    clearTimeout(this._revealFallback);
+    if (this._io) this._io.disconnect();
+    if (this._onScroll) window.removeEventListener("scroll", this._onScroll);
+  }
+
+  applyTheme() {
+    const root = this.rootRef.current; if (!root) return;
+    const accentMap = { "Areni wine":"#6e2a35", "Cognac":"#8c5a38", "Antique brass":"#9c7d3d" };
+    const accent = accentMap[this.props.accent] || "#6e2a35";
+    root.style.setProperty("--accent", accent);
+    const day = (this.props.timeOfDay || "Dusk") === "Day";
+    if (day) {
+      root.style.setProperty("--sky-top", "#e8efea");
+      root.style.setProperty("--sky-bot", "#f5f1e7");
+      root.style.setProperty("--glow", "0.22");
+    } else {
+      root.style.setProperty("--sky-top", "#efe4d0");
+      root.style.setProperty("--sky-bot", "#f4eee2");
+      root.style.setProperty("--glow", "0.55");
+    }
+    const sc = this.props.heroScene || "Gorge & arch";
+    root.querySelectorAll('[data-scene="arch"]').forEach(e => { e.style.display = (sc === "Gorge only") ? "none" : ""; });
+    root.querySelectorAll('[data-scene="gorge"]').forEach(e => { e.style.display = (sc === "Arch only") ? "none" : ""; });
+  }
+
+  pad(n) { return String(n).padStart(2, "0"); }
+  updateCountdown() {
+    let diff = Math.max(0, this.target - Date.now());
+    const d = Math.floor(diff / 86400000); diff -= d * 86400000;
+    const h = Math.floor(diff / 3600000); diff -= h * 3600000;
+    const m = Math.floor(diff / 60000); diff -= m * 60000;
+    const s = Math.floor(diff / 1000);
+    if (this.daysRef.current) this.daysRef.current.textContent = this.pad(d);
+    if (this.hoursRef.current) this.hoursRef.current.textContent = this.pad(h);
+    if (this.minsRef.current) this.minsRef.current.textContent = this.pad(m);
+    if (this.secsRef.current) this.secsRef.current.textContent = this.pad(s);
+  }
+
+  setLang(lang) {
+    const root = this.rootRef.current; if (!root) return;
+    this.lang = lang;
+    const table = this.dict[lang] || this.dict.en;
+    root.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (table[key] != null) el.textContent = table[key];
+    });
+    root.querySelectorAll("[data-lang]").forEach(btn => {
+      const active = btn.getAttribute("data-lang") === lang;
+      btn.style.color = active ? "var(--ink)" : "var(--ink-soft)";
+      btn.style.borderBottomColor = active ? "var(--accent)" : "transparent";
+    });
+    try { document.documentElement.lang = lang; } catch (e) {}
+  }
+
+  setupMotion() {
+    this.setupReveals();
+    this.setupParallax();
+    this.guardAnimations();
+  }
+
+  // If CSS animations are frozen (capture / background render contexts),
+  // entrance elements would sit at 0% opacity forever. Probe for that and,
+  // if detected, reveal everything directly so content is never invisible.
+  guardAnimations() {
+    const root = this.rootRef.current; if (!root) return;
+    const probe = document.createElement("div");
+    probe.style.cssText = "position:absolute;left:-9999px;top:0;width:1px;height:1px;opacity:0;pointer-events:none;animation:reveal .15s linear forwards";
+    root.appendChild(probe);
+    setTimeout(() => {
+      const op = parseFloat(getComputedStyle(probe).opacity) || 0;
+      probe.remove();
+      if (op < 0.5) this.forceShowAll();
+    }, 360);
+  }
+
+  forceShowAll() {
+    const root = this.rootRef.current; if (!root) return;
+    root.querySelectorAll("[data-reveal]").forEach(el => {
+      el.style.animation = "none"; el.style.transition = "none";
+      el.style.opacity = "1"; el.style.transform = "none"; el.dataset.shown = "1";
+    });
+    root.querySelectorAll("[data-line]").forEach(el => { el.style.animation = "none"; el.style.transform = "scaleY(1)"; });
+    root.querySelectorAll("header *").forEach(el => {
+      const an = getComputedStyle(el).animationName || "";
+      if (an.indexOf("reveal") !== -1) { el.style.animation = "none"; el.style.opacity = "1"; el.style.transform = "none"; }
+    });
+    root.querySelectorAll("path").forEach(el => {
+      const an = getComputedStyle(el).animationName || "";
+      if (an.indexOf("drawIn") !== -1) { el.style.animation = "none"; el.style.strokeDashoffset = "0"; }
+    });
+  }
+
+  setupReveals() {
+    const root = this.rootRef.current; if (!root) return;
+    const els = Array.from(root.querySelectorAll("[data-reveal]"));
+    const reveal = (el) => {
+      if (!el || el.dataset.shown) return;
+      el.dataset.shown = "1";
+      const delay = parseInt(el.getAttribute("data-delay") || "0", 10);
+      el.style.animation = `reveal .9s cubic-bezier(.2,.7,.2,1) ${delay}ms both`;
+      el.querySelectorAll("[data-line]").forEach(line => {
+        line.style.animation = `growLine 1.1s ease ${delay + 250}ms forwards`;
+      });
+    };
+    this._revealEl = reveal;
+    els.forEach(e => { e.style.opacity = "0"; });
+    this._revealCheck = () => {
+      const vh = window.innerHeight || 800;
+      els.forEach(el => {
+        if (el.dataset.shown) return;
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 0.92 && r.bottom > -40) reveal(el);
+      });
+    };
+    if ("IntersectionObserver" in window) {
+      this._io = new IntersectionObserver((entries) => {
+        entries.forEach(en => { if (en.isIntersecting) { reveal(en.target); this._io.unobserve(en.target); } });
+      }, { threshold: 0.1, rootMargin: "0px 0px -6% 0px" });
+      els.forEach(e => this._io.observe(e));
+    }
+    this._revealCheck();
+    // safety net — never leave content hidden
+    this._revealFallback = setTimeout(() => els.forEach(reveal), 3500);
+  }
+
+  setupParallax() {
+    const root = this.rootRef.current; if (!root) return;
+    const layers = Array.from(root.querySelectorAll("[data-parallax]"));
+    let ticking = false;
+    this._onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY || window.pageYOffset || (document.documentElement && document.documentElement.scrollTop) || 0;
+        layers.forEach(l => {
+          const sp = parseFloat(l.getAttribute("data-speed")) || 0.1;
+          l.style.transform = `translate3d(0, ${y * sp}px, 0)`;
+        });
+        if (this._revealCheck) this._revealCheck();
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", this._onScroll, { passive: true });
+    this._onScroll();
+  }
+
+  renderVals() {
+    return {
+      rootRef: this.rootRef,
+      daysRef: this.daysRef,
+      hoursRef: this.hoursRef,
+      minsRef: this.minsRef,
+      secsRef: this.secsRef,
+      setEn: () => this.setLang("en"),
+      setRu: () => this.setLang("ru"),
+      setHy: () => this.setLang("hy")
+    };
+  }
+}
+</script>
+</body>
+</html>
