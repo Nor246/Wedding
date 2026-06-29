@@ -132,10 +132,13 @@
     }
   };
 
+  var SUPPORTED = ["en", "ru", "hy"];
+  var STORAGE_KEY = "lwh-lang";
   var i18nEls = Array.prototype.slice.call(document.querySelectorAll("[data-i18n]"));
   var langBtns = Array.prototype.slice.call(document.querySelectorAll("[data-lang]"));
 
-  function setLang(lang) {
+  function setLang(lang, persist) {
+    if (SUPPORTED.indexOf(lang) < 0) lang = "en";
     var table = dict[lang] || dict.en;
     i18nEls.forEach(function (el) {
       var key = el.getAttribute("data-i18n");
@@ -145,14 +148,34 @@
       var active = btn.getAttribute("data-lang") === lang;
       btn.style.color = active ? "var(--ink)" : "var(--ink-soft)";
       btn.style.borderBottomColor = active ? "var(--accent)" : "transparent";
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
     });
     try { document.documentElement.lang = lang; } catch (e) {}
+    if (persist) { try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {} }
   }
 
   langBtns.forEach(function (btn) {
-    btn.addEventListener("click", function () { setLang(btn.getAttribute("data-lang")); });
+    btn.addEventListener("click", function () { setLang(btn.getAttribute("data-lang"), true); });
   });
-  setLang("en");
+
+  // Initial language: a previously chosen one wins; otherwise match the
+  // visitor's browser languages (ru / hy / en); otherwise fall back to English.
+  // An auto-detected choice isn't persisted, so it keeps tracking the browser
+  // until the guest explicitly picks one.
+  function detectLang() {
+    var stored;
+    try { stored = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+    if (stored && SUPPORTED.indexOf(stored) >= 0) return { lang: stored, persist: true };
+    var prefs = (navigator.languages && navigator.languages.length)
+      ? navigator.languages : [navigator.language || "en"];
+    for (var i = 0; i < prefs.length; i++) {
+      var code = String(prefs[i]).toLowerCase().slice(0, 2);
+      if (SUPPORTED.indexOf(code) >= 0) return { lang: code, persist: false };
+    }
+    return { lang: "en", persist: false };
+  }
+  var initial = detectLang();
+  setLang(initial.lang, initial.persist);
 
   /* ---- Scroll reveals ---- */
   var revealEls = Array.prototype.slice.call(document.querySelectorAll("[data-reveal]"));

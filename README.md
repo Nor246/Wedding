@@ -30,8 +30,15 @@ Or just open `The-Long-Way-Home.html` directly in any browser.
 
 ## Deploy
 
-Upload the `site/` folder to any static host — Netlify, Vercel, GitHub
-Pages, Cloudflare Pages, S3, etc. Nothing to compile.
+This repo ships a GitHub Pages workflow
+([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)) that publishes
+the `site/` folder on every push to `main`. One-time setup: **Settings → Pages →
+Source = "GitHub Actions"**. Live at `https://nor246.github.io/Wedding/`.
+
+Or upload the `site/` folder to any other static host — Netlify, Vercel,
+Cloudflare Pages, S3, etc. Nothing to compile. See
+[`site/README.md`](site/README.md) for the custom-domain one-line change, the
+sharing/SEO assets, and the content still needed before launch.
 
 ## Features
 

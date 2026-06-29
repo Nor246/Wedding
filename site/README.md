@@ -3,9 +3,8 @@
 A trilingual (English / Русский / Հայերեն) one-page wedding site.
 **Sunday, 6 September 2026 · Vagharshyan Garden · Saghmosavan, Armenia.**
 
-Built as a dependency-free static site (HTML + CSS + vanilla JS) ported
-from the original Claude Design prototype. No build step — just host the
-folder.
+Dependency-free static site (HTML + CSS + vanilla JS). No build step — just
+host the folder.
 
 ## Run / preview
 
@@ -16,51 +15,98 @@ python3 -m http.server 8000
 # then open http://localhost:8000
 ```
 
-(Opening `index.html` directly via `file://` mostly works too, but a
-server is recommended so the OpenStreetMap iframe and the photo
+(Opening `index.html` directly via `file://` mostly works too, but a server
+is recommended so the OpenStreetMap iframe and the `<image-slot>` photo
 placeholders behave exactly as in production.)
 
-## Deploy
+## Deploy (GitHub Pages — automated)
 
-Upload the whole `site/` folder to any static host — Netlify, Vercel,
-GitHub Pages, Cloudflare Pages, S3, etc. There is nothing to compile.
+A workflow at [`../.github/workflows/deploy.yml`](../.github/workflows/deploy.yml)
+publishes this `site/` folder to GitHub Pages on every push to `main`.
+
+**One-time setup:** in the GitHub repo, go to **Settings → Pages → Build and
+deployment** and set **Source = "GitHub Actions"**. After that, every push to
+`main` (that touches `site/`) redeploys automatically. The live URL will be:
+
+```
+https://nor246.github.io/Wedding/
+```
+
+You can also host the folder on any other static host (Netlify, Vercel,
+Cloudflare Pages, S3) — there is nothing to compile.
+
+## Custom domain (one-line change)
+
+The canonical URL and the link-preview (Open Graph) URLs are absolute, so they
+must point at the real domain. They all derive from one base value:
+
+1. In `index.html`, find the comment block marked
+   `↓↓↓ When you point a custom domain`. Replace the host in `rel="canonical"`,
+   the four `og:*` / `twitter:image` URLs there.
+2. Update the same host in `robots.txt`, `sitemap.xml`, and the `href="/Wedding/"`
+   home link in `404.html` (a custom apex domain serves from `/`).
+3. Add a `CNAME` file here containing just your domain, and set the domain in
+   **Settings → Pages**.
+
+## Sharing & SEO
+
+- **Link previews:** when the URL is pasted into WhatsApp / Telegram / iMessage
+  / Facebook, the `og:*` tags + [`og-image.png`](og-image.png) (1200×630) show a
+  branded card. To regenerate the image, edit the source SVG and re-rasterize
+  (see the project's scratch notes) or replace `og-image.png` directly.
+- **Icons:** `favicon.svg` (+ `favicon-32.png`), `apple-touch-icon.png`, and the
+  PWA manifest (`site.webmanifest` + `icon-192/512.png`).
+- `robots.txt` + `sitemap.xml` are included.
+
+## Language
+
+The switcher (EN / РУС / ՀԱՅ) lives in the nav. On first visit the site
+auto-selects a language from the visitor's browser settings (falling back to
+English); once a guest picks one, that choice is remembered (`localStorage`).
+All copy is in `js/main.js` under the `dict` object.
 
 ## Files
 
 | File | Purpose |
 |------|---------|
-| `index.html`       | All markup + inline layout styling + the line-art SVG illustrations |
-| `css/styles.css`   | Design tokens, keyframes, reveal + hover interactions, reduced-motion |
-| `js/main.js`       | Countdown, language switcher, scroll reveals, parallax |
-| `js/image-slot.js` | `<image-slot>` web component used for the photo placeholders |
-| `img/`             | Drop real photos here if you reference them by `src` (see below) |
+| `index.html`        | All markup + inline layout styling + the line-art SVG illustrations + head meta (OG/Twitter/canonical/icons) |
+| `css/styles.css`    | Design tokens, keyframes, reveals + hover, skip-link/focus, reduced-motion |
+| `js/main.js`        | Countdown, language switcher (auto-detect + persist), scroll reveals, parallax |
+| `js/image-slot.js`  | `<image-slot>` web component used for the photo placeholders |
+| `img/`              | Real photos go here — see [`img/README.md`](img/README.md) |
+| `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png` | Icons |
+| `og-image.png`      | 1200×630 social/link-preview image |
+| `site.webmanifest`  | PWA manifest |
+| `robots.txt`, `sitemap.xml` | Crawl/index hints |
+| `404.html`          | On-brand not-found page (served by GitHub Pages) |
+| `.nojekyll`         | Disables Jekyll processing on GitHub Pages |
 
 ## Adding real photos
 
-There are three photo spots, each an `<image-slot>` element: the garden
-photo in **Essentials**, and the two host avatars in **Your hosts**.
+Three photo spots are `<image-slot>` elements: the garden photo in
+**Essentials**, and the two host avatars in **Your hosts**. On a normal host the
+slots are read-only, so set a real image by adding a `src` — full instructions
+and the slot ids are in [`img/README.md`](img/README.md).
 
-Until a photo is supplied they show an elegant placeholder. To set a real
-image, add a `src` to the slot in `index.html`, e.g.:
+## Before you go live (content the couple still owes)
 
-```html
-<image-slot id="lwh-garden" shape="rounded" radius="1" fit="cover"
-            src="img/garden.jpg"
-            placeholder="Drop a photo of the garden / gorge"
-            style="display:block;width:100%;height:clamp(360px,48vh,520px)"></image-slot>
-```
+From the original brief, these were flagged as "still needed before launch" and
+are **not yet on the page** — add them when decided:
 
-(The drag-and-drop fill is only active inside the Claude Design editor;
-on a normal host the slot is read-only, so use `src`.)
+- Exact venue map pin / taxi drop-off point (the map currently centers on
+  Saghmosavank monastery as the landmark).
+- Dress code & shoe guidance (outdoor garden, grass).
+- Weather / rain plan.
+- Accommodation recommendations.
+- What to bring for the evening (it gets cool above the gorge).
+- Gift preference.
+- Real photos for the three slots.
 
 ## Theme
 
-The palette the couple landed on is baked into the root container in
-`index.html` via CSS custom properties: **dusk** time-of-day, **Areni
-wine** accent (`--accent:#6e2a35`), and the full **gorge + arch** hero
-scene. To retune, edit those `--*` variables on the `#top` element — e.g.
-`--accent` for the accent colour, or `--sky-top` / `--sky-bot` / `--glow`
-for a brighter daytime sky.
+The palette is baked into the root container in `index.html` via CSS custom
+properties (dusk time-of-day, Areni-wine accent `--accent:#6e2a35`, gorge + arch
+hero). Retune by editing those `--*` variables on the `#top` element.
 
 ## Event details encoded in the page
 

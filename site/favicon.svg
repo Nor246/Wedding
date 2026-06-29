@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ekaterina & Norayr">
+  <rect width="64" height="64" rx="13" fill="#2c3019"/>
+  <g fill="none" stroke="#a6843f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 52 V28 C18 17 26 12 32 9 C38 12 46 17 46 28 V52"/>
+  </g>
+  <path d="M32 9 l3.4 4.6 l-3.4 4.6 l-3.4 -4.6 Z" fill="#6e2a35"/>
+  <circle cx="32" cy="9" r="1.7" fill="#a6843f"/>
+</svg>
