@@ -1,0 +1,47 @@
+# Netlify config — deploys the static site in ./site from a (private) GitHub repo
+# to a public URL, free. No build step; Netlify just publishes the folder.
+#
+# Setup (one time): app.netlify.com → Add new site → Import an existing project
+# → GitHub → authorize → pick Nor246/Wedding. Netlify reads this file, so you
+# can leave the build command empty and the publish directory as "site".
+
+[build]
+  publish = "site"
+  command = ""
+
+# Long-cache the fingerprintable, rarely-changing assets.
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# HTML revalidates so content edits go live immediately.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Conservative security headers (safe for this site — it embeds the
+# OpenStreetMap iframe as the parent frame, which these do not block).
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
