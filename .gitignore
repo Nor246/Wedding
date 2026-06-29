@@ -1,0 +1,13 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Node (not used by the site, but in case tooling is added)
+node_modules/
+
+# Local preview artifacts
+site/.preview/
+*.log

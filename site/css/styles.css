@@ -1,0 +1,52 @@
+/* ============================================================
+   The Long Way Home — Ekaterina & Norayr
+   Global styles, design tokens, keyframes, interactions.
+   Per-element layout lives inline in index.html to preserve the
+   original design values exactly; this file holds the things that
+   are global, repeated, or interactive (hover/reveal/parallax).
+   ============================================================ */
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#f4eee2}
+img{display:block;max-width:100%}
+::selection{background:#6e2a35;color:#f1e9d8}
+
+/* ---- Keyframes ---- */
+@keyframes drawIn{to{stroke-dashoffset:0}}
+@keyframes flicker{0%,100%{transform:scale(1);opacity:.95}20%{transform:scale(1.06,.94);opacity:1}40%{transform:scale(.96,1.06);opacity:.82}60%{transform:scale(1.04,.97);opacity:1}80%{transform:scale(.98,1.03);opacity:.9}}
+@keyframes twinkle{0%,100%{opacity:.1}50%{opacity:.8}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes reveal{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
+@keyframes scrollcue{0%{transform:translateY(0);opacity:.6}55%{transform:translateY(9px);opacity:.12}100%{transform:translateY(0);opacity:.6}}
+@keyframes growLine{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+
+/* ---- Scroll reveals ----
+   Elements stay hidden only when JS is present (html.js); without JS
+   everything is visible so the page degrades gracefully. */
+.js [data-reveal]{opacity:0}
+.js [data-reveal].revealed{animation:reveal .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--reveal-delay,0ms)}
+
+/* ---- Interactions (ported from the prototype's style-hover attrs) ---- */
+.lang-btn{transition:color .3s ease,border-color .3s ease}
+
+.expect-card{transition:transform .5s ease,box-shadow .5s ease,border-color .5s ease}
+.expect-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px -24px rgba(60,64,37,.4);border-color:var(--cognac)}
+
+/* underline links that brighten their border on hover */
+.hover-brass{transition:border-color .35s ease}
+.hover-brass:hover{border-color:var(--brass)}
+.contact-link{transition:border-color .4s ease}
+.contact-link:hover{border-bottom-color:var(--brass)}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  .js [data-reveal]{opacity:1}
+  [data-parallax]{transform:none !important}
+}
