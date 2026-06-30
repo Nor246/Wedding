@@ -93,8 +93,9 @@ and the slot ids are in [`img/README.md`](img/README.md).
 From the original brief, these were flagged as "still needed before launch" and
 are **not yet on the page** — add them when decided:
 
-- Exact venue map pin / taxi drop-off point (the map currently centers on
-  Saghmosavank monastery as the landmark).
+- Taxi drop-off point at the venue (the map **pin is now exact** —
+  `40.380342, 44.394665`, Vagharshyan Garden's Yandex location, ~170 m west of
+  Saghmosavank monastery; verified against Wikidata + Tripadvisor).
 - Dress code & shoe guidance (outdoor garden, grass).
 - Weather / rain plan.
 - Accommodation recommendations.
@@ -113,6 +114,7 @@ hero). Retune by editing those `--*` variables on the `#top` element.
 - **Couple:** Ekaterina & Norayr
 - **Date/time:** Sun 6 Sep 2026, ceremony 17:15 (countdown targets 16:30 arrival, +04:00)
 - **Venue:** Vagharshyan Garden, Saghmosavan — ~40 min by car from Yerevan
+  (coordinates `40.380342, 44.394665`; map marker + directions link use these)
 - **Return transport:** Sprinters to Yerevan at 23:00 and 00:00
 - **Hosts:** Ksenia ([@Kseniya_GY](https://t.me/Kseniya_GY), +7 908 244 8657)
   and Kristina ([@svadba_kris](https://t.me/svadba_kris), +7 912 485 7796)
