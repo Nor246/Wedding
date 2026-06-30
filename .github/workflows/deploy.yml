@@ -1,22 +1,13 @@
 name: Deploy site to GitHub Pages
 
-# Publishes the static site in ./site to GitHub Pages.
-#
-# NOTE: GitHub Pages requires either a PUBLIC repo (free) or GitHub Pro for a
-# private repo. While this repo is private on the free plan, Pages can't be
-# enabled, so this workflow is MANUAL-ONLY (workflow_dispatch) to avoid failing
-# on every push. The site is served for free from a private repo via Netlify
-# (see ../netlify.toml).
-#
-# To switch to GitHub Pages later: make the repo public (or upgrade to Pro),
-# set Settings → Pages → Source = "GitHub Actions", then uncomment the `push:`
-# trigger below so deploys run automatically.
+# Publishes the static site in ./site to GitHub Pages on every push to main.
+# The repo is public with Settings → Pages → Source = "GitHub Actions".
 on:
-  # push:
-  #   branches: [main]
-  #   paths:
-  #     - "site/**"
-  #     - ".github/workflows/deploy.yml"
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
 # Least-privilege token scopes required by the Pages deploy.
