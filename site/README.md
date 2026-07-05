@@ -58,6 +58,22 @@ must point at the real domain. They all derive from one base value:
   PWA manifest (`site.webmanifest` + `icon-192/512.png`).
 - `robots.txt` + `sitemap.xml` are included.
 
+## Invitations (unique guest links + RSVP + open tracking)
+
+Each household gets a personal link `…/invite/?g=<token>` — a page in the same
+style with the invitation video, an RSVP form (attendance, party size, food
+restrictions, arrival date for guests from abroad), and the hosts' contacts.
+
+- **Backend:** a Google Sheet + Apps Script web app in the couple's Google
+  account. One-time setup (~10 min): [`../tools/apps-script/SETUP.md`](../tools/apps-script/SETUP.md).
+- **Wiring:** paste the deployed `/exec` URL and the unlisted YouTube video id
+  into `CONFIG` at the top of [`invite/invite.js`](invite/invite.js).
+  While `SCRIPT_URL` is empty the page runs in a harmless demo mode.
+- **Tracking:** every open stamps `last_opened_at` / `open_count` (+ best-effort
+  IP & city) on the guest's row; RSVPs land in the sheet with full history.
+- Guest names and tokens live only in the private sheet — never in this repo.
+- The page is `noindex` and deliberately absent from `sitemap.xml`.
+
 ## Language
 
 The switcher (EN / РУС / ՀԱՅ) lives in the nav. On first visit the site

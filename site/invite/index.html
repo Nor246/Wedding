@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f4eee2">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex">
+<title>You're invited · Ekaterina & Norayr</title>
+<meta name="description" content="A personal invitation from Ekaterina & Norayr — Sunday 6 September 2026, Vagharshyan Garden, Saghmosavan, Armenia.">
+
+<!-- Link preview when an invite link is sent in a messenger -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ekaterina & Norayr">
+<meta property="og:title" content="You're invited — Ekaterina & Norayr">
+<meta property="og:description" content="Sunday 6 September 2026 · Vagharshyan Garden, Saghmosavan, Armenia. Open your personal invitation.">
+<meta property="og:image" content="https://nor246.github.io/Wedding/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Noto+Serif+Armenian:wght@300;400;500;600&family=Noto+Sans+Armenian:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+/* ---- invite-page-specific interactive styles ---- */
+[hidden]{display:none !important}
+.shimmer{display:inline-block;min-width:12ch;height:.85em;border-radius:3px;vertical-align:baseline;
+  background:linear-gradient(90deg,rgba(166,132,63,.14) 25%,rgba(166,132,63,.32) 50%,rgba(166,132,63,.14) 75%);
+  background-size:200% 100%;animation:shimmerMove 1.5s linear infinite}
+@keyframes shimmerMove{to{background-position:-200% 0}}
+
+.inv-input{width:100%;padding:12px 14px;border:1px solid rgba(140,90,56,.35);background:rgba(255,251,242,.55);
+  font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:17px;color:var(--ink);border-radius:0;
+  transition:border-color .3s ease}
+.inv-input:focus{outline:none;border-color:var(--brass)}
+textarea.inv-input{resize:vertical;min-height:76px;line-height:1.5}
+
+.attend-card{position:relative;display:flex;flex-direction:column;gap:5px;padding:20px 22px;cursor:pointer;
+  border:1px solid rgba(140,90,56,.26);background:rgba(255,251,242,.4);transition:transform .4s ease,border-color .4s ease,background .4s ease}
+.attend-card:hover{transform:translateY(-3px);border-color:var(--cognac)}
+.attend-card input{position:absolute;opacity:0;pointer-events:none}
+.attend-card .dot{position:absolute;top:20px;right:18px;width:15px;height:15px;border-radius:50%;
+  border:1.5px solid var(--brass);transition:background .3s ease,border-color .3s ease}
+.attend-card.sel{border-color:var(--wine);background:rgba(110,42,53,.06)}
+.attend-card.sel .dot{background:var(--accent);border-color:var(--accent)}
+
+.stepbtn{width:42px;height:42px;border:1px solid rgba(140,90,56,.4);background:none;cursor:pointer;
+  font-family:'Cormorant Garamond',serif;font-size:24px;line-height:1;color:var(--ink);transition:border-color .3s ease,background .3s ease}
+.stepbtn:hover{border-color:var(--brass);background:rgba(166,132,63,.08)}
+
+.btn-send{display:inline-flex;align-items:center;gap:10px;padding:15px 34px;cursor:pointer;background:none;
+  border:1px solid rgba(166,132,63,.55);color:var(--ink);font-family:'Jost','Noto Sans Armenian',sans-serif;
+  font-size:12px;letter-spacing:.22em;text-transform:uppercase;transition:border-color .3s ease,background .3s ease}
+.btn-send:hover{border-color:var(--brass);background:rgba(166,132,63,.1)}
+.btn-send:disabled{opacity:.55;cursor:default}
+
+.vidbox{position:relative;width:100%;padding-top:56.25%;background:var(--olive-deep);overflow:hidden}
+.vidbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+</style>
+<script src="invite.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="top" style="--linen:#f4eee2;--linen2:#efe6d4;--stone:#e7dbc4;--sand:#dbcdb0;--olive:#3b4025;--olive-deep:#2c3019;--ink:#3a3e26;--ink-soft:#5d6047;--sage:#9aa583;--sage-soft:#bcc3aa;--cognac:#8c5a38;--leather:#33271f;--brass:#a6843f;--wine:#6e2a35;--accent:#6e2a35;--cream:#f1e9d8;--cream-soft:#cfc8b2;--sky-top:#efe4d0;--sky-bot:#f4eee2;--glow:0.55;position:relative;width:100%;min-height:100vh;background:var(--linen);font-family:'EB Garamond','Noto Serif Armenian',serif;color:var(--ink)">
+
+<!-- ============ NAV ============ -->
+<nav aria-label="Primary" style="position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:15px clamp(18px,5vw,52px);backdrop-filter:blur(11px);-webkit-backdrop-filter:blur(11px);background:rgba(244,238,226,.74);border-bottom:1px solid rgba(166,132,63,.2)">
+  <a href="../" aria-label="Ekaterina & Norayr — wedding site" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:21px;letter-spacing:.12em;color:var(--ink);text-decoration:none">E<span style="color:var(--accent);font-style:italic;margin:0 .14em">&amp;</span>N</a>
+  <div role="group" aria-label="Language" style="display:flex;align-items:center;gap:9px">
+    <button class="lang-btn" data-lang="en" lang="en" aria-pressed="true" style="background:none;border:none;border-bottom:1px solid var(--accent);cursor:pointer;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11.5px;letter-spacing:.14em;color:var(--ink);padding:3px 1px">ENG</button>
+    <span aria-hidden="true" style="color:var(--brass);opacity:.5">·</span>
+    <button class="lang-btn" data-lang="ru" lang="ru" aria-pressed="false" style="background:none;border:none;border-bottom:1px solid transparent;cursor:pointer;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11.5px;letter-spacing:.14em;color:var(--ink-soft);padding:3px 1px">РУС</button>
+    <span aria-hidden="true" style="color:var(--brass);opacity:.5">·</span>
+    <button class="lang-btn" data-lang="hy" lang="hy" aria-pressed="false" style="background:none;border:none;border-bottom:1px solid transparent;cursor:pointer;font-family:'Noto Sans Armenian',sans-serif;font-size:11.5px;letter-spacing:.1em;color:var(--ink-soft);padding:3px 1px">ՀԱՅ</button>
+  </div>
+</nav>
+<main id="main">
+
+<!-- ============ HERO (compact, personalised) ============ -->
+<header style="position:relative;min-height:78vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px clamp(18px,5vw,52px) 64px;overflow:hidden;background:linear-gradient(180deg,var(--sky-top),var(--sky-bot) 62%)">
+  <!-- ceremony arch, drawing in behind the words -->
+  <svg aria-hidden="true" focusable="false" data-scene="arch" viewBox="0 0 600 780" preserveAspectRatio="xMidYMid meet" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(560px,92vw);height:min(80vh,760px);z-index:1;pointer-events:none">
+    <path pathLength="1" d="M150,780 L150,322 C150,206 232,156 300,120 C368,156 450,206 450,322 L450,780" fill="none" stroke="var(--brass)" stroke-width="1.4" opacity="0.55" style="stroke-dasharray:1;stroke-dashoffset:1;animation:drawIn 2.8s ease .3s forwards"/>
+    <path pathLength="1" d="M164,780 L164,326 C164,214 240,168 300,136 C360,168 436,214 436,326 L436,780" fill="none" stroke="var(--brass)" stroke-width="0.9" opacity="0.3" style="stroke-dasharray:1;stroke-dashoffset:1;animation:drawIn 2.8s ease .5s forwards"/>
+    <path d="M300,118 l9,13 l-9,13 l-9,-13 Z" fill="none" stroke="var(--brass)" stroke-width="1.2" opacity="0.55"/>
+    <g fill="none" stroke="var(--sage)" stroke-width="1.2" opacity="0.65">
+      <path d="M150,330 C176,318 182,300 180,282 C198,294 196,316 178,330"/>
+      <path d="M450,330 C424,318 418,300 420,282 C402,294 404,316 422,330"/>
+    </g>
+  </svg>
+
+  <div style="position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;max-width:720px">
+    <p data-i18n="inv.eyebrow" style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:12.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--brass);margin:0 0 24px;animation:reveal 1s ease .1s both">Together with our families</p>
+    <h1 data-i18n="inv.title" style="margin:0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:300;line-height:1;color:var(--ink);letter-spacing:.012em;font-size:clamp(44px,8.5vw,96px);animation:reveal 1.1s ease .22s both">You're invited</h1>
+    <p id="party-name" style="margin:22px 0 0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-style:italic;font-weight:400;font-size:clamp(24px,4vw,44px);color:var(--accent);letter-spacing:.03em;animation:reveal 1.1s ease .38s both"><span class="shimmer" aria-hidden="true"></span></p>
+    <p data-i18n="inv.line" style="font-family:'EB Garamond','Noto Serif Armenian',serif;font-style:italic;font-size:clamp(15.5px,1.6vw,19px);color:var(--ink-soft);max-width:44ch;margin:20px auto 0;opacity:.9;animation:reveal 1.1s ease .52s both">We would be honoured to have you with us — above the Kasakh Gorge, where the road finally leads home.</p>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:7px;margin-top:30px;animation:reveal 1.1s ease .66s both">
+      <p data-i18n="inv.date" style="margin:0;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:12.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink)">Sunday · 6 September 2026</p>
+      <p data-i18n="inv.venue" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:16px;color:var(--ink-soft);letter-spacing:.02em">Vagharshyan Garden · Saghmosavan, Armenia</p>
+    </div>
+  </div>
+</header>
+
+<!-- ============ BAD LINK / ERROR ============ -->
+<section id="sec-error" hidden style="position:relative;padding:clamp(60px,9vh,110px) clamp(18px,6vw,72px);background:var(--linen2);border-top:1px solid rgba(166,132,63,.18)">
+  <div style="width:100%;max-width:640px;margin:0 auto;text-align:center;border:1px solid rgba(110,42,53,.28);background:rgba(110,42,53,.05);padding:clamp(30px,5vw,48px)">
+    <h2 id="err-title" data-i18n="inv.badLink" style="margin:0 0 10px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-style:italic;font-weight:400;font-size:clamp(24px,3vw,32px);color:var(--wine)">This link seems incomplete.</h2>
+    <p id="err-sub" data-i18n="inv.badLinkSub" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:clamp(16px,1.7vw,18.5px);color:var(--ink);line-height:1.55">Please open the exact link you received, or message the hosts below — they'll sort it out.</p>
+    <button id="btn-retry" hidden class="btn-send" style="margin-top:24px" type="button"><span data-i18n="inv.retry">Try again</span></button>
+  </div>
+</section>
+
+<!-- ============ VIDEO ============ -->
+<section id="sec-video" style="position:relative;padding:clamp(80px,11vh,130px) clamp(18px,6vw,72px);background:var(--stone)">
+  <div style="width:100%;max-width:920px;margin:0 auto">
+    <div data-reveal style="text-align:center;margin-bottom:clamp(36px,5vh,56px)">
+      <p data-i18n="inv.videoEyebrow" style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--cognac);margin:0 0 18px">Before anything else</p>
+      <h2 data-i18n="inv.videoTitle" style="margin:0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:400;font-size:clamp(32px,4.6vw,56px);line-height:1.06;color:var(--ink)">A few words from us</h2>
+    </div>
+    <div data-reveal data-delay="100" style="position:relative;padding:14px">
+      <div style="position:absolute;inset:0;border:1px solid rgba(166,132,63,.34);pointer-events:none;z-index:3"></div>
+      <div style="position:absolute;top:-1px;left:-1px;width:18px;height:18px;border-top:1px solid var(--brass);border-left:1px solid var(--brass);pointer-events:none;z-index:3"></div>
+      <div style="position:absolute;top:-1px;right:-1px;width:18px;height:18px;border-top:1px solid var(--brass);border-right:1px solid var(--brass);pointer-events:none;z-index:3"></div>
+      <div style="position:absolute;bottom:-1px;left:-1px;width:18px;height:18px;border-bottom:1px solid var(--brass);border-left:1px solid var(--brass);pointer-events:none;z-index:3"></div>
+      <div style="position:absolute;bottom:-1px;right:-1px;width:18px;height:18px;border-bottom:1px solid var(--brass);border-right:1px solid var(--brass);pointer-events:none;z-index:3"></div>
+      <div class="vidbox" id="vidbox">
+        <!-- iframe injected by invite.js when a video id is configured -->
+        <div id="vid-placeholder" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:24px">
+          <svg aria-hidden="true" focusable="false" width="64" height="64" viewBox="0 0 56 56" fill="none" stroke="var(--brass)" stroke-width="1.1"><path d="M14 48 V24 C14 14 22 9 28 6 C34 9 42 14 42 24 V48"/><path d="M28 6 l3 4 l-3 4 l-3-4 Z" fill="var(--brass)" stroke="none" opacity="0.8"/></svg>
+          <p data-i18n="inv.videoSoon" style="margin:0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-style:italic;font-size:clamp(17px,2vw,22px);color:var(--cream-soft);max-width:34ch">Our video greeting is on its way — check back soon.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RSVP ============ -->
+<section id="sec-rsvp" style="position:relative;padding:clamp(80px,11vh,130px) clamp(18px,6vw,72px);background:var(--linen2)">
+  <div style="width:100%;max-width:640px;margin:0 auto">
+    <div data-reveal style="text-align:center;margin-bottom:clamp(36px,5vh,52px)">
+      <p data-i18n="inv.rsvpEyebrow" style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--brass);margin:0 0 18px">Kindly reply</p>
+      <h2 data-i18n="inv.rsvpTitle" style="margin:0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:400;font-size:clamp(32px,4.6vw,56px);line-height:1.06;color:var(--ink)">Will you join us?</h2>
+    </div>
+
+    <p id="responded-banner" hidden data-i18n="inv.responded" style="margin:0 0 26px;padding:13px 18px;border:1px solid rgba(166,132,63,.4);background:rgba(166,132,63,.08);font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:16px;color:var(--ink);text-align:center">You've already replied — you can update your answer below.</p>
+
+    <form id="rsvp-form" novalidate data-reveal data-delay="80" style="display:flex;flex-direction:column;gap:26px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
+        <label class="attend-card" id="card-yes">
+          <input type="radio" name="attending" value="yes">
+          <span class="dot" aria-hidden="true"></span>
+          <span data-i18n="inv.yes" style="font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(21px,2.3vw,25px);color:var(--ink)">Joyfully accept</span>
+          <span data-i18n="inv.yesSub" style="font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:15px;color:var(--ink-soft)">We'll be there</span>
+        </label>
+        <label class="attend-card" id="card-no">
+          <input type="radio" name="attending" value="no">
+          <span class="dot" aria-hidden="true"></span>
+          <span data-i18n="inv.no" style="font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(21px,2.3vw,25px);color:var(--ink)">Regretfully decline</span>
+          <span data-i18n="inv.noSub" style="font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:15px;color:var(--ink-soft)">Celebrating from afar</span>
+        </label>
+      </div>
+
+      <div id="row-count" hidden>
+        <label for="f-count" data-i18n="inv.count" style="display:block;margin:0 0 10px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass)">How many of you will come?</label>
+        <div style="display:flex;align-items:center;gap:14px">
+          <button type="button" class="stepbtn" id="cnt-minus" aria-label="Fewer">−</button>
+          <input id="f-count" inputmode="numeric" readonly value="2" aria-live="polite" style="width:64px;text-align:center;border:none;background:none;font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--ink);font-variant-numeric:tabular-nums">
+          <button type="button" class="stepbtn" id="cnt-plus" aria-label="More">+</button>
+          <span id="count-hint" data-i18n="inv.countHint" style="font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:15px;color:var(--ink-soft)">Including you</span>
+        </div>
+      </div>
+
+      <div id="row-restr" hidden>
+        <label for="f-restr" data-i18n="inv.restr" style="display:block;margin:0 0 10px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass)">Food allergies or restrictions?</label>
+        <textarea id="f-restr" class="inv-input" rows="2" maxlength="500" data-i18n-ph="inv.restrPh" placeholder="e.g. nuts, vegetarian, gluten-free…"></textarea>
+      </div>
+
+      <div id="row-arrival" hidden>
+        <label for="f-arrival" data-i18n="inv.arrival" style="display:block;margin:0 0 10px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass)">When do you arrive in Armenia?</label>
+        <input type="date" id="f-arrival" class="inv-input" min="2026-07-06" max="2026-09-06" style="max-width:280px">
+        <p data-i18n="inv.arrivalHint" style="margin:8px 0 0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:14.5px;color:var(--ink-soft);font-style:italic">For guests arriving from abroad</p>
+      </div>
+
+      <div>
+        <label for="f-msg" data-i18n="inv.msg" style="display:block;margin:0 0 10px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass)">A note for us (optional)</label>
+        <textarea id="f-msg" class="inv-input" rows="3" maxlength="1000" data-i18n-ph="inv.msgPh" placeholder="Anything you'd like us to know"></textarea>
+      </div>
+
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:6px">
+        <button type="submit" id="btn-send" class="btn-send"><span id="btn-send-label" data-i18n="inv.send">Send answer</span></button>
+        <p id="form-status" aria-live="polite" style="margin:0;min-height:1.5em;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:16.5px;color:var(--ink-soft);text-align:center;max-width:44ch"></p>
+      </div>
+    </form>
+    <noscript><p style="text-align:center;font-family:'EB Garamond',serif;font-size:16px;color:#6e2a35">Please enable JavaScript to send your RSVP — or simply message the hosts below.</p></noscript>
+  </div>
+</section>
+
+<!-- ============ CONTACTS ============ -->
+<section id="contacts" style="position:relative;padding:clamp(80px,11vh,130px) clamp(18px,6vw,72px);background:var(--leather);overflow:hidden">
+  <div aria-hidden="true" style="position:absolute;top:-40px;right:-30px;opacity:.16;pointer-events:none"><svg aria-hidden="true" focusable="false" width="240" height="240" viewBox="0 0 240 240" fill="none" stroke="var(--brass)" stroke-width="1"><path d="M40 200 C40 120 90 70 120 40 C150 70 200 120 200 200"/><path d="M120 40 C100 60 96 80 120 96 C144 80 140 60 120 40"/></svg></div>
+  <div style="position:relative;z-index:2;width:100%;max-width:1000px;margin:0 auto">
+    <div data-reveal style="text-align:center;margin-bottom:clamp(36px,5vh,56px)">
+      <p data-i18n="con.eyebrow" style="font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--brass);margin:0 0 18px">Questions?</p>
+      <h2 data-i18n="con.title" style="margin:0 0 16px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:400;font-size:clamp(32px,4.6vw,56px);line-height:1.06;color:var(--cream)">Your hosts</h2>
+      <p data-i18n="con.intro" style="margin:0 auto;font-family:'EB Garamond','Noto Serif Armenian',serif;font-style:italic;font-size:clamp(16px,1.7vw,19px);color:var(--cream-soft);max-width:46ch">For all guest questions — practical and organisational.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(20px,3vw,32px)">
+      <div data-reveal style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(30px,4vw,44px) 28px;border:1px solid rgba(166,132,63,.36);background:rgba(241,233,216,.04)">
+        <svg aria-hidden="true" focusable="false" width="80" height="80" viewBox="0 0 80 80" style="margin-bottom:18px"><circle cx="40" cy="40" r="38" fill="rgba(166,132,63,.08)" stroke="var(--brass)" stroke-width="1"/><text x="40" y="50" text-anchor="middle" style="font-family:'Cormorant Garamond',serif;font-size:30px;fill:var(--brass)">K</text></svg>
+        <h3 data-i18n="con.n1" style="margin:0 0 4px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(26px,3vw,34px);color:var(--cream)">Ksenia</h3>
+        <p data-i18n="con.r1" style="margin:0 0 22px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass)">Guest coordinator</p>
+        <a href="https://t.me/Kseniya_GY" target="_blank" rel="noopener" class="contact-link" style="display:flex;align-items:center;gap:11px;color:var(--cream);text-decoration:none;font-family:'EB Garamond',serif;font-size:17px;padding:9px 4px;border-bottom:1px solid transparent">
+          <svg aria-hidden="true" focusable="false" width="19" height="19" viewBox="0 0 24 24" fill="var(--brass)"><path d="M21.9 4.3c-.3-.2-.6-.2-.9-.1L2.6 11.3c-.6.2-.6 1 0 1.2l4.6 1.5 1.8 5.5c.1.4.6.5.9.2l2.6-2.3 4.7 3.5c.4.3.9.1 1-.4l3.3-15.2c.1-.2 0-.4-.2-.5ZM9.4 14.2l8.1-6.2-6.5 6.9-.2 3.4-1.4-4.1Z"/></svg>
+          <span>@Kseniya_GY</span>
+        </a>
+        <a href="tel:+79082448657" class="contact-link" style="display:flex;align-items:center;gap:11px;color:var(--cream-soft);text-decoration:none;font-family:'EB Garamond',serif;font-size:17px;padding:9px 4px;border-bottom:1px solid transparent">
+          <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brass)" stroke-width="1.6"><path d="M5 4 h4 l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+          <span>+7 908 244 8657</span>
+        </a>
+      </div>
+      <div data-reveal data-delay="100" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(30px,4vw,44px) 28px;border:1px solid rgba(166,132,63,.36);background:rgba(241,233,216,.04)">
+        <svg aria-hidden="true" focusable="false" width="80" height="80" viewBox="0 0 80 80" style="margin-bottom:18px"><circle cx="40" cy="40" r="38" fill="rgba(166,132,63,.08)" stroke="var(--brass)" stroke-width="1"/><text x="40" y="50" text-anchor="middle" style="font-family:'Cormorant Garamond',serif;font-size:30px;fill:var(--brass)">K</text></svg>
+        <h3 data-i18n="con.n2" style="margin:0 0 4px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(26px,3vw,34px);color:var(--cream)">Kristina</h3>
+        <p data-i18n="con.r2" style="margin:0 0 22px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass)">Guest coordinator</p>
+        <a href="https://t.me/svadba_kris" target="_blank" rel="noopener" class="contact-link" style="display:flex;align-items:center;gap:11px;color:var(--cream);text-decoration:none;font-family:'EB Garamond',serif;font-size:17px;padding:9px 4px;border-bottom:1px solid transparent">
+          <svg aria-hidden="true" focusable="false" width="19" height="19" viewBox="0 0 24 24" fill="var(--brass)"><path d="M21.9 4.3c-.3-.2-.6-.2-.9-.1L2.6 11.3c-.6.2-.6 1 0 1.2l4.6 1.5 1.8 5.5c.1.4.6.5.9.2l2.6-2.3 4.7 3.5c.4.3.9.1 1-.4l3.3-15.2c.1-.2 0-.4-.2-.5ZM9.4 14.2l8.1-6.2-6.5 6.9-.2 3.4-1.4-4.1Z"/></svg>
+          <span>@svadba_kris</span>
+        </a>
+        <a href="tel:+79124857796" class="contact-link" style="display:flex;align-items:center;gap:11px;color:var(--cream-soft);text-decoration:none;font-family:'EB Garamond',serif;font-size:17px;padding:9px 4px;border-bottom:1px solid transparent">
+          <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brass)" stroke-width="1.6"><path d="M5 4 h4 l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+          <span>+7 912 485 7796</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer style="position:relative;padding:clamp(56px,8vh,84px) clamp(18px,6vw,72px);background:var(--olive-deep);text-align:center">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:16px">
+    <p style="margin:0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(24px,3vw,34px);font-weight:300;color:var(--cream)">Ekaterina <span style="color:var(--accent);font-style:italic">&amp;</span> Norayr</p>
+    <p data-i18n="inv.full" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:16px;color:var(--cream-soft)">Schedule, map &amp; all the details are on the main page</p>
+    <a href="../" class="hover-brass" style="display:inline-flex;align-items:center;gap:8px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);text-decoration:none;border-bottom:1px solid rgba(166,132,63,.5);padding-bottom:2px"><span data-i18n="inv.fullCta">Open the wedding site</span><svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 h13 M12 5 l7 7 -7 7"/></svg></a>
+  </div>
+</footer>
+
+<div id="demo-chip" hidden style="position:fixed;left:12px;bottom:12px;z-index:70;padding:7px 12px;background:rgba(44,48,25,.85);color:#f1e9d8;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.06em;border-radius:4px">Preview mode — responses are not saved</div>
+
+</div>
+</body>
+</html>
