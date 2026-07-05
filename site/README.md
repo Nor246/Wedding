@@ -61,8 +61,11 @@ must point at the real domain. They all derive from one base value:
 ## Invitations (unique guest links + RSVP + open tracking)
 
 Each household gets a personal link `…/invite/?g=<token>` — a page in the same
-style with the invitation video, an RSVP form (attendance, party size, food
-restrictions, arrival date for guests from abroad), and the hosts' contacts.
+style that opens with the muted autoplaying invitation video (a single
+"watch with sound" control), then a date/venue highlight, then RSVP:
+**each person in the party is listed by name with a Coming / Can't come
+toggle (everyone defaults to Coming)**, plus food restrictions, arrival date
+for guests from abroad, a message box, and the hosts' contacts.
 
 - **Backend:** a Google Sheet + Apps Script web app in the couple's Google
   account. One-time setup (~10 min): [`../tools/apps-script/SETUP.md`](../tools/apps-script/SETUP.md).

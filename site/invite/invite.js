@@ -1,6 +1,7 @@
 /* ============================================================
    The Long Way Home — personal invitation page
-   Token lookup · open tracking · RSVP · trilingual (EN/RU/HY)
+   Autoplay video (unmute-only control) · per-person RSVP ·
+   open tracking · trilingual (EN/RU/HY)
    ============================================================ */
 (function () {
   "use strict";
@@ -12,7 +13,7 @@
      VIDEO_ID:   the YouTube id of the unlisted invitation video
                  (the part after watch?v=).
      While SCRIPT_URL is empty the page runs in DEMO mode: a sample
-     guest is shown and nothing is saved anywhere.
+     party is shown and nothing is saved anywhere.
      ------------------------------------------------------------------ */
   var CONFIG = {
     SCRIPT_URL: "",
@@ -26,9 +27,9 @@
   var partyEl = $("party-name");
   var secError = $("sec-error"), errTitle = $("err-title"), errSub = $("err-sub"), btnRetry = $("btn-retry");
   var secVideo = $("sec-video"), vidbox = $("vidbox"), vidPlaceholder = $("vid-placeholder");
+  var vidShield = $("vid-shield"), btnUnmute = $("btn-unmute");
   var secRsvp = $("sec-rsvp"), form = $("rsvp-form"), respondedBanner = $("responded-banner");
-  var cardYes = $("card-yes"), cardNo = $("card-no");
-  var rowCount = $("row-count"), fCount = $("f-count"), cntMinus = $("cnt-minus"), cntPlus = $("cnt-plus");
+  var membersList = $("members-list");
   var rowRestr = $("row-restr"), fRestr = $("f-restr");
   var rowArrival = $("row-arrival"), fArrival = $("f-arrival");
   var fMsg = $("f-msg");
@@ -39,10 +40,10 @@
   var token = "";
   try { token = (new URLSearchParams(location.search).get("g") || "").trim(); } catch (e) {}
 
-  var guest = null;       // filled by the open call
-  var maxCount = 8;
+  var guest = null;          // filled by the open call
+  var memberState = [];      // [{name, coming}] — everyone defaults to coming
   var hasResponded = false;
-  var lastStatus = null;  // {key,color} so language switches re-render it
+  var lastStatus = null;     // {key,color} so language switches re-render it
 
   /* ---- i18n ---- */
   var SUPPORTED = ["en", "ru", "hy"];
@@ -52,16 +53,15 @@
       "inv.eyebrow": "Together with our families",
       "inv.title": "You're invited",
       "inv.line": "We would be honoured to have you with us — above the Kasakh Gorge, where the road finally leads home.",
-      "inv.date": "Sunday · 6 September 2026",
-      "inv.venue": "Vagharshyan Garden · Saghmosavan, Armenia",
-      "inv.videoEyebrow": "Before anything else",
-      "inv.videoTitle": "A few words from us",
+      "inv.unmute": "Watch with sound",
       "inv.videoSoon": "Our video greeting is on its way — check back soon.",
+      "inv.dateLabel": "The date", "inv.dateVal": "Sunday, 6 September 2026", "inv.dateSub": "Guests from 16:30 · Ceremony at 17:15",
+      "inv.placeLabel": "The place", "inv.placeVal": "Vagharshyan Garden", "inv.placeSub": "Saghmosavan, Armenia · 40 min from Yerevan",
+      "inv.detailsCta": "Schedule, map & details",
       "inv.rsvpEyebrow": "Kindly reply",
       "inv.rsvpTitle": "Will you join us?",
-      "inv.yes": "Joyfully accept", "inv.yesSub": "We'll be there",
-      "inv.no": "Regretfully decline", "inv.noSub": "Celebrating from afar",
-      "inv.count": "How many of you will come?", "inv.countHint": "Including you",
+      "inv.whoNote": "We've marked everyone as coming — just flip anyone who can't make it.",
+      "inv.coming": "Coming", "inv.cantCome": "Can't come",
       "inv.restr": "Food allergies or restrictions?", "inv.restrPh": "e.g. nuts, vegetarian, gluten-free…",
       "inv.arrival": "When do you arrive in Armenia?", "inv.arrivalHint": "For guests arriving from abroad",
       "inv.msg": "A note for us (optional)", "inv.msgPh": "Anything you'd like us to know",
@@ -70,7 +70,6 @@
       "inv.thanksNo": "We'll miss you dearly. Thank you for letting us know.",
       "inv.updateNote": "Plans changed? Reopen this link anytime and update your answer.",
       "inv.responded": "You've already replied — you can update your answer below.",
-      "inv.needAttend": "Please choose an answer above.",
       "inv.sendErr": "Couldn't send — please try again, or message the hosts below.",
       "inv.loadErr": "We couldn't load your invitation right now.",
       "inv.loadErrSub": "Please try again in a moment — or message the hosts below, they'll help.",
@@ -88,16 +87,15 @@
       "inv.eyebrow": "Вместе с нашими семьями",
       "inv.title": "Приглашаем вас",
       "inv.line": "Для нас будет честью видеть вас рядом — над ущельем Касах, где дорога наконец ведёт домой.",
-      "inv.date": "Воскресенье · 6 сентября 2026",
-      "inv.venue": "Сад Вагаршян · Сагмосаван, Армения",
-      "inv.videoEyebrow": "Прежде всего",
-      "inv.videoTitle": "Пара слов от нас",
+      "inv.unmute": "Смотреть со звуком",
       "inv.videoSoon": "Наше видеоприглашение уже в пути — загляните чуть позже.",
+      "inv.dateLabel": "Дата", "inv.dateVal": "Воскресенье, 6 сентября 2026", "inv.dateSub": "Сбор гостей с 16:30 · Церемония в 17:15",
+      "inv.placeLabel": "Место", "inv.placeVal": "Сад Вагаршян", "inv.placeSub": "Сагмосаван, Армения · 40 минут от Еревана",
+      "inv.detailsCta": "Программа, карта и детали",
       "inv.rsvpEyebrow": "Просим ответить",
       "inv.rsvpTitle": "Будете ли вы с нами?",
-      "inv.yes": "С радостью придём", "inv.yesSub": "Мы будем",
-      "inv.no": "К сожалению, не сможем", "inv.noSub": "Будем праздновать издалека",
-      "inv.count": "Сколько вас будет?", "inv.countHint": "Включая вас",
+      "inv.whoNote": "Мы отметили всех как «придут» — просто переключите тех, кто не сможет.",
+      "inv.coming": "Приду", "inv.cantCome": "Не смогу",
       "inv.restr": "Аллергии или ограничения в еде?", "inv.restrPh": "например: орехи, вегетарианство…",
       "inv.arrival": "Когда вы прилетаете в Армению?", "inv.arrivalHint": "Для гостей, приезжающих из-за границы",
       "inv.msg": "Пара слов для нас (по желанию)", "inv.msgPh": "Всё, что хотите нам сказать",
@@ -106,7 +104,6 @@
       "inv.thanksNo": "Нам будет вас не хватать. Спасибо, что сообщили.",
       "inv.updateNote": "Планы изменились? Откройте эту ссылку снова и обновите ответ.",
       "inv.responded": "Вы уже ответили — ниже можно обновить ответ.",
-      "inv.needAttend": "Пожалуйста, выберите ответ выше.",
       "inv.sendErr": "Не получилось отправить — попробуйте ещё раз или напишите координаторам ниже.",
       "inv.loadErr": "Не получилось загрузить ваше приглашение.",
       "inv.loadErrSub": "Попробуйте ещё раз через минуту — или напишите координаторам ниже, они помогут.",
@@ -124,16 +121,15 @@
       "inv.eyebrow": "Մեր ընտանիքների հետ միասին",
       "inv.title": "Հրավիրում ենք ձեզ",
       "inv.line": "Պատիվ կլինի ձեզ մեր կողքին տեսնել՝ Քասախի կիրճի վրա, որտեղ ճանապարհը վերջապես տուն է տանում։",
-      "inv.date": "Կիրակի · 6 սեպտեմբերի 2026",
-      "inv.venue": "Վաղարշյան այգի · Սաղմոսավան, Հայաստան",
-      "inv.videoEyebrow": "Ամենից առաջ",
-      "inv.videoTitle": "Մի քանի խոսք մեզնից",
+      "inv.unmute": "Դիտել ձայնով",
       "inv.videoSoon": "Մեր տեսաուղերձը շուտով կլինի այստեղ — այցելեք մի փոքր ուշ։",
+      "inv.dateLabel": "Ամսաթիվը", "inv.dateVal": "Կիրակի, 6 սեպտեմբերի 2026", "inv.dateSub": "Հյուրերը՝ 16:30-ից · Արարողությունը՝ 17:15",
+      "inv.placeLabel": "Վայրը", "inv.placeVal": "Վաղարշյան այգի", "inv.placeSub": "Սաղմոսավան, Հայաստան · 40 րոպե Երևանից",
+      "inv.detailsCta": "Ծրագիրը, քարտեզը և մանրամասները",
       "inv.rsvpEyebrow": "Խնդրում ենք պատասխանել",
       "inv.rsvpTitle": "Կմիանա՞ք մեզ",
-      "inv.yes": "Սիրով կգանք", "inv.yesSub": "Մենք կլինենք",
-      "inv.no": "Ցավոք, չենք կարող", "inv.noSub": "Կնշենք հեռվից",
-      "inv.count": "Քանի՞ հոգով կգաք", "inv.countHint": "Ներառյալ ձեզ",
+      "inv.whoNote": "Բոլորին նշել ենք որպես «կգա» — պարզապես փոխեք նրանց, ովքեր չեն կարող։",
+      "inv.coming": "Կգամ", "inv.cantCome": "Չեմ կարող",
       "inv.restr": "Սննդային ալերգիա կամ սահմանափակումնե՞ր", "inv.restrPh": "օր.՝ ընկույզ, բուսակերություն…",
       "inv.arrival": "Ե՞րբ եք ժամանում Հայաստան", "inv.arrivalHint": "Արտասահմանից ժամանող հյուրերի համար",
       "inv.msg": "Խոսք մեզ համար (ըստ ցանկության)", "inv.msgPh": "Այն, ինչ կուզենայիք ասել մեզ",
@@ -142,7 +138,6 @@
       "inv.thanksNo": "Դուք շատ կպակասեք մեզ։ Շնորհակալ ենք, որ տեղեկացրիք։",
       "inv.updateNote": "Պլանները փոխվե՞լ են։ Ցանկացած պահի նորից բացեք հղումը և թարմացրեք պատասխանը։",
       "inv.responded": "Դուք արդեն պատասխանել եք — ստորև կարող եք թարմացնել պատասխանը։",
-      "inv.needAttend": "Խնդրում ենք ընտրել պատասխանը վերևում։",
       "inv.sendErr": "Չհաջողվեց ուղարկել — փորձեք կրկին կամ գրեք համակարգողներին։",
       "inv.loadErr": "Չհաջողվեց բեռնել ձեր հրավերը։",
       "inv.loadErrSub": "Փորձեք մի փոքր ուշ — կամ գրեք համակարգողներին ներքևում, նրանք կօգնեն։",
@@ -179,13 +174,15 @@
     });
     langBtns.forEach(function (btn) {
       var active = btn.getAttribute("data-lang") === lang;
-      btn.style.color = active ? "var(--ink)" : "var(--ink-soft)";
-      btn.style.borderBottomColor = active ? "var(--accent)" : "transparent";
+      btn.style.color = active ? "var(--cream)" : "var(--cream-soft)";
+      btn.style.borderBottomColor = active ? "var(--brass)" : "transparent";
       btn.setAttribute("aria-pressed", active ? "true" : "false");
     });
     try { document.documentElement.lang = lang; } catch (e) {}
     if (persist) { try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {} }
-    // Live text that isn't static-keyed:
+    // Dynamic bits that aren't static-keyed:
+    Array.prototype.forEach.call(document.querySelectorAll('[data-seg="yes"]'), function (el) { el.textContent = t("inv.coming"); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-seg="no"]'), function (el) { el.textContent = t("inv.cantCome"); });
     if (lastStatus) setStatus(lastStatus);
     syncSendLabel();
   }
@@ -227,17 +224,33 @@
   } else { revealEls.forEach(reveal); }
   setTimeout(function () { revealEls.forEach(reveal); }, 3500);
 
-  /* ---- Video ---- */
+  /* ---- Video: muted autoplay, the ONLY control is “watch with sound” ---- */
+  function ytCommand(iframe, func, args) {
+    try {
+      iframe.contentWindow.postMessage(JSON.stringify({ event: "command", func: func, args: args || [] }), "*");
+    } catch (e) {}
+  }
   function initVideo() {
-    if (!CONFIG.VIDEO_ID) return; // placeholder stays
+    if (!CONFIG.VIDEO_ID) return; // placeholder poster stays
+    var id = encodeURIComponent(CONFIG.VIDEO_ID);
     var iframe = document.createElement("iframe");
-    iframe.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(CONFIG.VIDEO_ID) + "?rel=0&modestbranding=1";
+    iframe.src = "https://www.youtube-nocookie.com/embed/" + id +
+      "?autoplay=1&mute=1&controls=0&rel=0&playsinline=1&loop=1&playlist=" + id +
+      "&enablejsapi=1&iv_load_policy=3&disablekb=1&fs=0";
     iframe.title = "Invitation video";
-    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-    iframe.allowFullscreen = true;
-    iframe.loading = "lazy";
+    iframe.allow = "autoplay; encrypted-media; picture-in-picture";
     vidPlaceholder.hidden = true;
-    vidbox.appendChild(iframe);
+    vidbox.insertBefore(iframe, vidShield);
+    vidShield.hidden = false;   // blocks stray clicks (no pause/seek/YouTube UI)
+    btnUnmute.hidden = false;
+    btnUnmute.addEventListener("click", function () {
+      // Hear it from the beginning — restart, unmute, play.
+      ytCommand(iframe, "seekTo", [0, true]);
+      ytCommand(iframe, "unMute");
+      ytCommand(iframe, "setVolume", [100]);
+      ytCommand(iframe, "playVideo");
+      btnUnmute.hidden = true;
+    });
   }
 
   /* ---- Status line under the submit button ---- */
@@ -251,31 +264,56 @@
     btnSendLabel.textContent = btnSend.disabled ? t("inv.sending") : t(hasResponded ? "inv.update" : "inv.send");
   }
 
-  /* ---- Attending cards ---- */
-  function attendingValue() {
-    var r = form.querySelector('input[name="attending"]:checked');
-    return r ? r.value : "";
+  /* ---- Per-person RSVP rows ---- */
+  function anyComing() {
+    return memberState.some(function (m) { return m.coming; });
   }
-  function syncAttendUi() {
-    var v = attendingValue();
-    cardYes.classList.toggle("sel", v === "yes");
-    cardNo.classList.toggle("sel", v === "no");
-    var yes = v === "yes";
-    rowCount.hidden = !yes;
-    rowRestr.hidden = !yes;
-    rowArrival.hidden = !(yes && guest && guest.abroad);
-  }
-  Array.prototype.forEach.call(form.querySelectorAll('input[name="attending"]'), function (r) {
-    r.addEventListener("change", function () { setStatus(null); syncAttendUi(); });
-  });
 
-  /* ---- Count stepper ---- */
-  function setCount(n) {
-    n = Math.max(1, Math.min(maxCount, n));
-    fCount.value = String(n);
+  function syncConditionalRows() {
+    var coming = anyComing();
+    rowRestr.hidden = !coming;
+    rowArrival.hidden = !(coming && guest && guest.abroad);
   }
-  cntMinus.addEventListener("click", function () { setCount(parseInt(fCount.value, 10) - 1); });
-  cntPlus.addEventListener("click", function () { setCount(parseInt(fCount.value, 10) + 1); });
+
+  function renderMembers() {
+    membersList.textContent = "";
+    memberState.forEach(function (m, i) {
+      var row = document.createElement("div");
+      row.className = "mem-row";
+
+      var name = document.createElement("span");
+      name.className = "mem-name";
+      name.textContent = m.name;
+      row.appendChild(name);
+
+      var seg = document.createElement("div");
+      seg.className = "seg";
+      seg.setAttribute("role", "radiogroup");
+      seg.setAttribute("aria-label", m.name);
+      [["yes", "inv.coming"], ["no", "inv.cantCome"]].forEach(function (opt) {
+        var label = document.createElement("label");
+        var input = document.createElement("input");
+        input.type = "radio";
+        input.name = "mem-" + i;
+        input.value = opt[0];
+        input.checked = (opt[0] === "yes") === m.coming;
+        input.addEventListener("change", function () {
+          memberState[i].coming = opt[0] === "yes";
+          setStatus(null);
+          syncConditionalRows();
+        });
+        var span = document.createElement("span");
+        span.setAttribute("data-seg", opt[0]);
+        span.textContent = t(opt[1]);
+        label.appendChild(input);
+        label.appendChild(span);
+        seg.appendChild(label);
+      });
+      row.appendChild(seg);
+      membersList.appendChild(row);
+    });
+    syncConditionalRows();
+  }
 
   /* ---- Backend calls ----
      POST as text/plain = a CORS "simple request": Apps Script can't answer
@@ -297,7 +335,10 @@
     return new Promise(function (resolve) {
       setTimeout(function () {
         if (payload.action === "open") {
-          resolve({ ok: token !== "badtoken", guest: { party_name: "Anna & Sergey", lang: "en", abroad: true, invited_count: 3, rsvp: null } });
+          resolve({
+            ok: token !== "badtoken",
+            guest: { party_name: "Anna & Sergey", lang: "en", abroad: true, members: ["Anna", "Sergey", "Misha"], rsvp: null }
+          });
         } else resolve({ ok: true });
       }, 700);
     });
@@ -325,27 +366,30 @@
     errTitle.setAttribute("data-i18n", retriable ? "inv.loadErr" : "inv.badLink");
     errSub.setAttribute("data-i18n", retriable ? "inv.loadErrSub" : "inv.badLinkSub");
     btnRetry.hidden = !retriable;
-    i18nEls = Array.prototype.slice.call(document.querySelectorAll("[data-i18n]"));
     setLang(lang, false);
   }
 
   function personalize(g) {
     guest = g;
     partyEl.textContent = g.party_name;
-    maxCount = Math.max(1, Math.min(20, Number(g.invited_count) || 2));
-    setCount(g.rsvp && g.rsvp.count ? g.rsvp.count : maxCount);
+    // Everyone starts as coming; a previous answer overrides per name.
+    var previous = {};
+    if (g.rsvp && g.rsvp.members) {
+      g.rsvp.members.forEach(function (m) { previous[m.name] = m.coming; });
+    }
+    memberState = (g.members && g.members.length ? g.members : [g.party_name]).map(function (name) {
+      return { name: name, coming: previous.hasOwnProperty(name) ? previous[name] : true };
+    });
+    renderMembers();
     // Guest's configured language wins unless they've explicitly chosen one before.
     if (!storedLang() && SUPPORTED.indexOf(g.lang) >= 0) setLang(g.lang, false);
     if (g.rsvp) {
       hasResponded = true;
       respondedBanner.hidden = false;
-      var pick = g.rsvp.attending === "yes" ? cardYes : cardNo;
-      pick.querySelector("input").checked = true;
       fRestr.value = g.rsvp.restrictions || "";
       if (/^\d{4}-\d{2}-\d{2}$/.test(g.rsvp.arrival || "")) fArrival.value = g.rsvp.arrival;
       fMsg.value = g.rsvp.message || "";
     }
-    syncAttendUi();
     syncSendLabel();
   }
 
@@ -375,22 +419,21 @@
   /* ---- Submit ---- */
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    var attending = attendingValue();
-    if (!attending) { setStatus({ key: "inv.needAttend", color: "var(--wine)" }); return; }
+    if (!memberState.length) return;
+    var coming = anyComing();
     btnSend.disabled = true;
     syncSendLabel();
     api({
       action: "rsvp", token: token,
-      attending: attending,
-      count: parseInt(fCount.value, 10) || 1,
-      restrictions: attending === "yes" ? fRestr.value.trim() : "",
-      arrival: attending === "yes" && guest && guest.abroad ? fArrival.value : "",
+      members: memberState,
+      restrictions: coming ? fRestr.value.trim() : "",
+      arrival: coming && guest && guest.abroad ? fArrival.value : "",
       message: fMsg.value.trim()
     }).then(function (res) {
       if (!res || !res.ok) throw new Error("save failed");
       hasResponded = true;
       respondedBanner.hidden = true;
-      setStatus({ key: attending === "yes" ? "inv.thanksYes" : "inv.thanksNo", color: "var(--olive)" });
+      setStatus({ key: coming ? "inv.thanksYes" : "inv.thanksNo", color: "var(--olive)" });
       setTimeout(function () {
         if (lastStatus && (lastStatus.key === "inv.thanksYes" || lastStatus.key === "inv.thanksNo")) {
           setStatus({ key: "inv.updateNote", color: "var(--ink-soft)" });

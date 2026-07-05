@@ -55,7 +55,10 @@ Only you can do this part (it's your Google account). Everything is copy-paste.
    | `party_name` | What the page greets: “Anna & Sergey”, “The Ivanovs” |
    | `lang` | Default page language: `en`, `ru`, or `hy` |
    | `abroad` | ✅ tick if they fly in — the page will ask their arrival date |
-   | `invited_count` | How many people this invitation covers (default 2) |
+   | `members` | Comma-separated first names, e.g. `Anna, Sergey, Misha` — each appears on the page with their own **Coming / Can't come** toggle (everyone starts as Coming) |
+
+   The per-person answers land in `member_rsvp` (e.g. `Anna ✓ · Sergey ✕`),
+   with `attending_count` holding how many are coming.
 
 2. **Invitations → Generate links for new rows** — fills `token` + `link`.
 3. Copy the `link` cell, send it to the guest (Telegram/WhatsApp/etc.).

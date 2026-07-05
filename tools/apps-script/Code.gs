@@ -9,8 +9,13 @@
  *  - "Invitations" sheet menu: generate unique tokens + links for guests.
  *  - doPost():       the web-app endpoint the invite page talks to.
  *      action "open" — logs a link open (timestamp, ip, city, device),
- *                      returns the guest's info for personalisation.
- *      action "rsvp" — records/updates the party's RSVP.
+ *                      returns the guest party's info for personalisation.
+ *      action "rsvp" — records/updates a per-person RSVP for the party.
+ *
+ * Per-person RSVP: the "members" column holds the party's first names
+ * (comma-separated). The invite page shows each name with a
+ * Coming / Can't come toggle, everyone defaulting to Coming. The result
+ * is stored readably in "member_rsvp", e.g.:  Anna ✓ · Sergey ✕
  *
  * Full setup instructions: SETUP.md (same folder in the repo).
  */
@@ -23,13 +28,16 @@ var RSVPS = 'RSVPs';
 
 // One row in Guests = one invitation (a household / party).
 var GUEST_HEADERS = [
-  'token', 'party_name', 'lang', 'abroad', 'invited_count', 'link',
+  'token', 'party_name', 'lang', 'abroad', 'members', 'link',
   'last_opened_at', 'open_count', 'last_ip', 'last_city',
-  'rsvp_status', 'attending_count', 'restrictions', 'arrival_date',
-  'message', 'responded_at'
+  'rsvp_status', 'attending_count', 'member_rsvp', 'restrictions',
+  'arrival_date', 'message', 'responded_at'
 ];
 var OPEN_HEADERS = ['timestamp', 'token', 'party', 'ip', 'city', 'user_agent', 'page_lang'];
-var RSVP_HEADERS = ['timestamp', 'token', 'party', 'attending', 'count', 'restrictions', 'arrival_date', 'message'];
+var RSVP_HEADERS = ['timestamp', 'token', 'party', 'coming_count', 'member_rsvp', 'restrictions', 'arrival_date', 'message'];
+
+var SEP = ' · ';   // joins member entries in member_rsvp
+var YES = '✓', NO = '✕';
 
 /* ================= Sheet menu ================= */
 
@@ -61,15 +69,16 @@ function setup() {
     g.getRange(2, c, Math.max(g.getMaxRows() - 1, 1), 1).setNumberFormat('@');
   });
 
-  // A friendly hint row the couple can overwrite with their first guest.
+  // A friendly hint row the couple can overwrite with their first guests.
   if (g.getLastRow() === 1) {
     g.getRange(2, 1, 1, 6).setValues([[
-      '', 'Anna & Sergey  ← example, replace me', 'ru', true, 2, ''
+      '', 'Anna & Sergey  ← example, replace me', 'ru', true, 'Anna, Sergey', ''
     ]]);
   }
   SpreadsheetApp.getUi().alert(
-    'Sheet initialised.\n\nAdd guests to "Guests" (party_name, lang en/ru/hy, tick abroad ' +
-    'for guests flying in, invited_count), then run\nInvitations → Generate links for new rows.');
+    'Sheet initialised.\n\nAdd guests to "Guests": party_name, lang (en/ru/hy), tick abroad ' +
+    'for guests flying in, and members — comma-separated first names, each of whom gets a ' +
+    'Coming / Can\'t come toggle on the page.\n\nThen run Invitations → Generate links for new rows.');
 }
 
 function ensureSheet(ss, name, headers) {
@@ -157,11 +166,11 @@ function handleOpen(b) {
     if (b.ip) setCell(sh, row, 'last_ip', str(b.ip, 64));
     if (b.city) setCell(sh, row, 'last_city', str(b.city, 96));
 
+    var members = parseMembers(g.members, g.party_name);
     var rsvp = null;
     if (g.responded_at) {
       rsvp = {
-        attending: g.rsvp_status === 'coming' ? 'yes' : 'no',
-        count: Number(g.attending_count) || 0,
+        members: parseMemberRsvp(g.member_rsvp),
         restrictions: String(g.restrictions || ''),
         arrival: String(g.arrival_date || ''),
         message: String(g.message || '')
@@ -173,7 +182,7 @@ function handleOpen(b) {
         party_name: String(g.party_name),
         lang: String(g.lang || '').toLowerCase() || 'en',
         abroad: g.abroad === true,
-        invited_count: Number(g.invited_count) || 2,
+        members: members,
         rsvp: rsvp
       }
     });
@@ -190,17 +199,27 @@ function handleRsvp(b) {
     if (!found) return json({ ok: false, error: 'unknown token' });
     var sh = found.sheet, row = found.row, g = found.data;
 
-    var attending = b.attending === 'yes' ? 'yes' : 'no';
-    var count = attending === 'yes' ? Math.max(1, Math.min(20, Number(b.count) || 1)) : 0;
+    // Per-person answers. Names are capped + cleaned; max 20 people.
+    var members = [];
+    if (b.members && b.members.length) {
+      for (var i = 0; i < Math.min(b.members.length, 20); i++) {
+        var m = b.members[i] || {};
+        var nm = str(m.name, 80);
+        if (nm) members.push({ name: nm, coming: m.coming === true });
+      }
+    }
+    var comingCount = members.filter(function (m) { return m.coming; }).length;
+    var memberRsvp = members.map(function (m) { return m.name + ' ' + (m.coming ? YES : NO); }).join(SEP);
     var restrictions = str(b.restrictions, 500);
     var arrival = str(b.arrival, 40);
     var message = str(b.message, 1000);
 
     SpreadsheetApp.getActive().getSheetByName(RSVPS).appendRow([
-      new Date(), found.token, g.party_name, attending, count, restrictions, arrival, message
+      new Date(), found.token, g.party_name, comingCount, memberRsvp, restrictions, arrival, message
     ]);
-    setCell(sh, row, 'rsvp_status', attending === 'yes' ? 'coming' : 'declined');
-    setCell(sh, row, 'attending_count', count);
+    setCell(sh, row, 'rsvp_status', comingCount > 0 ? 'coming' : 'declined');
+    setCell(sh, row, 'attending_count', comingCount);
+    setCell(sh, row, 'member_rsvp', memberRsvp);
     setCell(sh, row, 'restrictions', restrictions);
     setCell(sh, row, 'arrival_date', arrival);
     setCell(sh, row, 'message', message);
@@ -212,6 +231,28 @@ function handleRsvp(b) {
 }
 
 /* ================= Helpers ================= */
+
+/** "Anna, Sergey" → ['Anna','Sergey']; falls back to the party name. */
+function parseMembers(cell, partyName) {
+  var list = String(cell || '').split(',')
+    .map(function (s) { return s.replace(/\s+/g, ' ').trim(); })
+    .filter(Boolean)
+    .slice(0, 20);
+  if (!list.length) list = [String(partyName || 'Guest').trim()];
+  return list;
+}
+
+/** "Anna ✓ · Sergey ✕" → [{name:'Anna',coming:true},{name:'Sergey',coming:false}] */
+function parseMemberRsvp(cell) {
+  var s = String(cell || '').trim();
+  if (!s) return [];
+  return s.split(SEP).map(function (part) {
+    part = part.trim();
+    var coming = part.slice(-1) === YES;
+    var name = part.replace(/\s*[✓✕]$/, '').trim();
+    return { name: name, coming: coming };
+  }).filter(function (m) { return m.name; });
+}
 
 function findGuest(token) {
   token = String(token || '').trim().toLowerCase();
