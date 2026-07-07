@@ -167,6 +167,7 @@ function handleOpen(b) {
     if (b.city) setCell(sh, row, 'last_city', str(b.city, 96));
 
     var members = parseMembers(g.members, g.party_name);
+    var abroad = g.abroad === true || String(g.abroad).trim().toUpperCase() === 'TRUE';
     var rsvp = null;
     if (g.responded_at) {
       rsvp = {
@@ -181,7 +182,7 @@ function handleOpen(b) {
       guest: {
         party_name: String(g.party_name),
         lang: String(g.lang || '').toLowerCase() || 'en',
-        abroad: g.abroad === true,
+        abroad: abroad,
         members: members,
         rsvp: rsvp
       }

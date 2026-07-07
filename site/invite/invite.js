@@ -17,7 +17,10 @@
      ------------------------------------------------------------------ */
   var CONFIG = {
     SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzjOl03589PSKgt6oMKhVbp8CqqgcNRme-5CtoDP3V19sANHUqEcNeeNsq0ZQOQQ7RW/exec",
-    VIDEO_ID: ""
+    VIDEO_ID: "WT0WRYFNUU8",
+    // The invitation video is a vertical Short (9:16) — the player box
+    // switches to portrait so there are no black side bars.
+    VIDEO_PORTRAIT: true
   };
 
   document.documentElement.classList.add("js");
@@ -232,6 +235,11 @@
   }
   function initVideo() {
     if (!CONFIG.VIDEO_ID) return; // placeholder poster stays
+    if (CONFIG.VIDEO_PORTRAIT) {
+      vidbox.classList.add("portrait");
+      var frame = document.getElementById("vid-frame");
+      if (frame) frame.classList.add("portrait");
+    }
     var id = encodeURIComponent(CONFIG.VIDEO_ID);
     var iframe = document.createElement("iframe");
     iframe.src = "https://www.youtube-nocookie.com/embed/" + id +
