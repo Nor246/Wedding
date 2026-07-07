@@ -16,7 +16,7 @@
      party is shown and nothing is saved anywhere.
      ------------------------------------------------------------------ */
   var CONFIG = {
-    SCRIPT_URL: "",
+    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzjOl03589PSKgt6oMKhVbp8CqqgcNRme-5CtoDP3V19sANHUqEcNeeNsq0ZQOQQ7RW/exec",
     VIDEO_ID: ""
   };
 
