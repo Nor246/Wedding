@@ -1,5 +1,10 @@
 # Photos
 
+`hero-saghmosavank.jpg` — the Kasakh-gorge/Ararat illustration used as the
+main-page hero backdrop and the invite page's postcard. Rasterized from
+`saghmosavank-hero-church-refined.svg` (a 5.5 MB auto-traced SVG kept out of
+the repo; re-render at 1536×1024 if the art ever changes).
+
 Drop real photos here, then reference them from `../index.html` via the
 `src` attribute on the matching `<image-slot>` (the slots are read-only on a
 normal host, so `src` is how a photo gets in):

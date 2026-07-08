@@ -25,12 +25,25 @@ a:focus-visible,button:focus-visible{outline:2px solid #a6843f;outline-offset:3p
 
 /* ---- Keyframes ---- */
 @keyframes drawIn{to{stroke-dashoffset:0}}
+@keyframes artIn{from{opacity:0;transform:scale(1.05) translateY(10px)}to{opacity:1;transform:none}}
 @keyframes flicker{0%,100%{transform:scale(1);opacity:.95}20%{transform:scale(1.06,.94);opacity:1}40%{transform:scale(.96,1.06);opacity:.82}60%{transform:scale(1.04,.97);opacity:1}80%{transform:scale(.98,1.03);opacity:.9}}
 @keyframes twinkle{0%,100%{opacity:.1}50%{opacity:.8}}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @keyframes reveal{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
 @keyframes scrollcue{0%{transform:translateY(0);opacity:.6}55%{transform:translateY(9px);opacity:.12}100%{transform:translateY(0);opacity:.6}}
 @keyframes growLine{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+
+/* ---- Hero illustration (Saghmosavank / Kasakh gorge) ----
+   The artwork fades in with a slow settle ("dawn reveal"); the brass
+   arch, names and candles animate on top of it. hero-blend melts the
+   gorge into the next section's linen. */
+.hero-art-wrap{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.hero-art{width:100%;height:100%;object-fit:cover;object-position:50% 100%;
+  animation:artIn 2.4s cubic-bezier(.22,.61,.36,1) both}
+.hero-blend{position:absolute;left:0;right:0;bottom:-1px;height:130px;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,rgba(239,230,212,0),#efe6d4)}
+/* On narrow screens the flanking candles collide with the countdown. */
+@media (max-width:640px){.hero-candle{display:none}}
 
 /* ---- Scroll reveals ----
    Elements stay hidden only when JS is present (html.js); without JS

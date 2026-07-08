@@ -160,7 +160,18 @@ textarea.inv-input{resize:vertical;min-height:76px;line-height:1.5}
   </svg>
 
   <div style="position:relative;z-index:2;width:100%;max-width:820px;margin:0 auto;text-align:center">
-    <h1 data-i18n="inv.title" data-reveal style="margin:0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:300;line-height:1;color:var(--ink);letter-spacing:.012em;font-size:clamp(40px,7.5vw,84px)">You're invited</h1>
+    <!-- postcard of the Kasakh gorge / Ararat illustration -->
+    <div data-reveal style="position:relative;padding:14px;max-width:680px;margin:0 auto clamp(34px,5.5vh,56px)">
+      <div style="position:absolute;inset:0;border:1px solid rgba(166,132,63,.34);pointer-events:none;z-index:3"></div>
+      <div style="position:absolute;top:-1px;left:-1px;width:18px;height:18px;border-top:1px solid var(--brass);border-left:1px solid var(--brass);z-index:3"></div>
+      <div style="position:absolute;top:-1px;right:-1px;width:18px;height:18px;border-top:1px solid var(--brass);border-right:1px solid var(--brass);z-index:3"></div>
+      <div style="position:absolute;bottom:-1px;left:-1px;width:18px;height:18px;border-bottom:1px solid var(--brass);border-left:1px solid var(--brass);z-index:3"></div>
+      <div style="position:absolute;bottom:-1px;right:-1px;width:18px;height:18px;border-bottom:1px solid var(--brass);border-right:1px solid var(--brass);z-index:3"></div>
+      <div style="overflow:hidden">
+        <img src="../img/hero-saghmosavank.jpg" alt="" loading="lazy" decoding="async" style="display:block;width:100%;height:clamp(210px,30vh,320px);object-fit:cover;object-position:50% 82%;animation:artIn 2.4s cubic-bezier(.22,.61,.36,1) both">
+      </div>
+    </div>
+    <h1 data-i18n="inv.title" data-reveal data-delay="60" style="margin:0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:300;line-height:1;color:var(--ink);letter-spacing:.012em;font-size:clamp(40px,7.5vw,84px)">You're invited</h1>
     <p id="party-name" data-reveal data-delay="80" style="margin:20px 0 0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-style:italic;font-weight:400;font-size:clamp(24px,4vw,42px);color:var(--accent);letter-spacing:.03em"><span class="shimmer" aria-hidden="true"></span></p>
     <p data-i18n="inv.line" data-reveal data-delay="140" style="font-family:'EB Garamond','Noto Serif Armenian',serif;font-style:italic;font-size:clamp(16px,1.7vw,19.5px);color:var(--ink-soft);max-width:46ch;margin:22px auto 0;line-height:1.6">We would be honoured to have you with us — above the Kasakh Gorge, where the road finally leads home.</p>
 
