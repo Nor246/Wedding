@@ -68,13 +68,20 @@
 <main id="main">
 
 <!-- ============ HERO ============ -->
-<header style="position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px clamp(18px,5vw,52px) 72px;overflow:hidden;background:linear-gradient(180deg,var(--sky-top),var(--sky-bot) 62%)">
+<header style="position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px clamp(18px,5vw,52px) 72px;overflow:hidden;background:#fdf0e0">
 
-  <!-- Saghmosavank / Kasakh gorge illustration — dawn reveal + parallax.
-       (Replaces the stylized gorge + botanical layers: the artwork already
-       carries the sun, birds, peaks, river and dried flowers.) -->
-  <div class="hero-art-wrap" data-parallax data-speed="0.10" aria-hidden="true">
-    <img class="hero-art" src="img/hero-saghmosavank.jpg" alt="" fetchpriority="high" decoding="async">
+  <!-- Kasakh gorge / Ararat illustration cut into true depth planes:
+       sun+clouds+birds drift slowest, the massif mid, the gorge fastest. -->
+  <div class="scene" aria-hidden="true">
+    <div class="scene-layer" data-parallax data-speed="0.04">
+      <div class="scene-pos"><img class="img-sun" src="img/layer-sun.png" alt="" fetchpriority="high" decoding="async" style="animation-delay:.15s"></div>
+    </div>
+    <div class="scene-layer" data-parallax data-speed="0.10">
+      <div class="scene-pos"><img class="img-full" src="img/layer-ararat.png" alt="" fetchpriority="high" decoding="async" style="animation-delay:.3s"></div>
+    </div>
+    <div class="scene-layer" data-parallax data-speed="0.22">
+      <div class="scene-pos"><img class="img-full" src="img/layer-gorge.png" alt="" fetchpriority="high" decoding="async" style="animation-delay:.45s"></div>
+    </div>
   </div>
   <div class="hero-blend" aria-hidden="true"></div>
 

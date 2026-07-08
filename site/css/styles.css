@@ -33,17 +33,29 @@ a:focus-visible,button:focus-visible{outline:2px solid #a6843f;outline-offset:3p
 @keyframes scrollcue{0%{transform:translateY(0);opacity:.6}55%{transform:translateY(9px);opacity:.12}100%{transform:translateY(0);opacity:.6}}
 @keyframes growLine{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 
-/* ---- Hero illustration (Saghmosavank / Kasakh gorge) ----
-   The artwork fades in with a slow settle ("dawn reveal"); the brass
-   arch, names and candles animate on top of it. hero-blend melts the
-   gorge into the next section's linen. */
-.hero-art-wrap{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
-.hero-art{width:100%;height:100%;object-fit:cover;object-position:50% 100%;
-  animation:artIn 2.4s cubic-bezier(.22,.61,.36,1) both}
+/* ---- Layered illustration scene (Kasakh gorge / Ararat) ----
+   The artwork is cut into depth planes (sun+clouds+birds / massif /
+   gorge). All plates live on one bottom-anchored 3:2 canvas so they stay
+   registered; each plane parallaxes at its own speed and fades in with a
+   slow "dawn" settle. hero-blend melts the gorge into the next section. */
+.scene{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;background:#fdf0e0}
+.scene-layer{position:absolute;inset:0}
+.scene-pos{position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:max(100%,150vh);aspect-ratio:1536/1024}
+.scene-pos>img{position:absolute;display:block;
+  animation:artIn 2s cubic-bezier(.22,.61,.36,1) both}
+.img-full{inset:0;width:100%;height:100%}
+.img-sun{left:0;top:0;width:36.59%;height:auto}
 .hero-blend{position:absolute;left:0;right:0;bottom:-1px;height:130px;z-index:2;pointer-events:none;
   background:linear-gradient(180deg,rgba(239,230,212,0),#efe6d4)}
 /* On narrow screens the flanking candles collide with the countdown. */
 @media (max-width:640px){.hero-candle{display:none}}
+
+/* Invite page: the same planes back the "You're invited" section, with
+   parallax measured relative to the section (see invite.js). The scene
+   bleeds beyond the section so offsets never expose an edge. */
+.iscene{position:absolute;left:0;right:0;top:-180px;bottom:-180px;pointer-events:none}
+.iscene .scene-pos{width:max(100%,1240px)}
 
 /* ---- Scroll reveals ----
    Elements stay hidden only when JS is present (html.js); without JS
@@ -72,5 +84,5 @@ a:focus-visible,button:focus-visible{outline:2px solid #a6843f;outline-offset:3p
     transition-duration:.001ms !important;
   }
   .js [data-reveal]{opacity:1}
-  [data-parallax]{transform:none !important}
+  [data-parallax],[data-ipar]{transform:none !important}
 }

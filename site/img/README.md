@@ -1,9 +1,10 @@
 # Photos
 
-`hero-saghmosavank.jpg` — the Kasakh-gorge/Ararat illustration used as the
-main-page hero backdrop and the invite page's postcard. Rasterized from
-`saghmosavank-hero-church-refined.svg` (a 5.5 MB auto-traced SVG kept out of
-the repo; re-render at 1536×1024 if the art ever changes).
+`layer-sun.png` / `layer-ararat.png` / `layer-gorge.png` — the Kasakh-gorge/
+Ararat illustration cut into parallax depth planes (sun+clouds+birds, massif,
+foreground gorge). Segmented from `saghmosavank-hero-church-refined.svg`
+(a 5.5 MB auto-traced SVG kept out of the repo). Used as the main-page hero
+and the invite "You're invited" backdrop.
 
 Drop real photos here, then reference them from `../index.html` via the
 `src` attribute on the matching `<image-slot>` (the slots are read-only on a

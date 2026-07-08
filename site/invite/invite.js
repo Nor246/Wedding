@@ -227,6 +227,29 @@
   } else { revealEls.forEach(reveal); }
   setTimeout(function () { revealEls.forEach(reveal); }, 3500);
 
+  /* ---- Section-relative parallax for the illustration planes ----
+     Offset is 0 when the section's centre crosses the viewport centre,
+     so the plates sit registered right where guests read the details. */
+  var iparEls = Array.prototype.slice.call(document.querySelectorAll("[data-ipar]"));
+  var iparHost = document.getElementById("sec-info");
+  var iparTick = false;
+  function iparUpdate() {
+    if (iparTick || !iparEls.length || !iparHost) return;
+    iparTick = true;
+    requestAnimationFrame(function () {
+      var r = iparHost.getBoundingClientRect();
+      var drift = (window.innerHeight / 2) - (r.top + r.height / 2);
+      iparEls.forEach(function (el) {
+        var sp = parseFloat(el.getAttribute("data-ipar")) || 0.1;
+        el.style.transform = "translate3d(0," + (drift * sp).toFixed(1) + "px,0)";
+      });
+      iparTick = false;
+    });
+  }
+  window.addEventListener("scroll", iparUpdate, { passive: true });
+  window.addEventListener("resize", iparUpdate, { passive: true });
+  iparUpdate();
+
   /* ---- Video: muted autoplay, the ONLY control is “watch with sound” ---- */
   function ytCommand(iframe, func, args) {
     try {

@@ -144,39 +144,28 @@ textarea.inv-input{resize:vertical;min-height:76px;line-height:1.5}
 </section>
 
 <!-- ============ INVITATION · DATE & PLACE ============ -->
-<section id="sec-info" style="position:relative;padding:clamp(76px,11vh,128px) clamp(18px,6vw,72px);background:linear-gradient(180deg,var(--sky-top),var(--linen) 55%);overflow:hidden">
-  <!-- botanical corners -->
-  <svg aria-hidden="true" focusable="false" viewBox="0 0 200 240" style="position:absolute;left:-24px;bottom:-10px;width:clamp(110px,14vw,190px);opacity:.5;pointer-events:none" fill="none" stroke="var(--olive)" stroke-width="1.4" stroke-linecap="round">
-    <path d="M40,240 C34,180 36,140 46,110"/><path d="M68,240 C72,174 68,136 60,110"/>
-    <g stroke-width="1.2"><path d="M46,110 q-9,-5 -14,-14 M46,110 q9,-5 14,-14 M46,103 q-9,-4 -13,-12 M46,103 q9,-4 13,-12"/></g>
-    <path d="M96,240 C96,196 94,166 92,144" stroke="var(--sage)"/>
-    <g stroke="var(--cognac)" stroke-width="1.2"><circle cx="92" cy="138" r="5"/><path d="M92,133 v-6 M92,143 v5 M87,138 h-6 M97,138 h6"/></g>
-  </svg>
-  <svg aria-hidden="true" focusable="false" viewBox="0 0 200 240" style="position:absolute;right:-24px;bottom:-10px;width:clamp(110px,14vw,190px);opacity:.5;pointer-events:none;transform:scaleX(-1)" fill="none" stroke="var(--olive)" stroke-width="1.4" stroke-linecap="round">
-    <path d="M40,240 C34,180 36,140 46,110"/><path d="M68,240 C72,174 68,136 60,110"/>
-    <g stroke-width="1.2"><path d="M46,110 q-9,-5 -14,-14 M46,110 q9,-5 14,-14"/></g>
-    <path d="M96,240 C100,200 88,176 100,152 C108,140 100,132 103,126" stroke="var(--sage)"/>
-    <g stroke="var(--wine)" stroke-width="1.1"><circle cx="90" cy="168" r="3.6"/><circle cx="97" cy="175" r="3.6"/><circle cx="104" cy="169" r="3.6"/></g>
-  </svg>
+<section id="sec-info" style="position:relative;padding:clamp(90px,13vh,150px) clamp(18px,6vw,72px) clamp(150px,20vh,230px);background:#fdf0e0;overflow:hidden">
+  <!-- the illustration's depth planes back this whole section; parallax is
+       measured relative to the section's position (invite.js) -->
+  <div class="iscene" aria-hidden="true">
+    <div class="scene-layer" data-ipar="0.05">
+      <div class="scene-pos"><img class="img-sun" src="../img/layer-sun.png" alt="" loading="lazy" decoding="async"></div>
+    </div>
+    <div class="scene-layer" data-ipar="0.12">
+      <div class="scene-pos"><img class="img-full" src="../img/layer-ararat.png" alt="" loading="lazy" decoding="async"></div>
+    </div>
+    <div class="scene-layer" data-ipar="0.25">
+      <div class="scene-pos"><img class="img-full" src="../img/layer-gorge.png" alt="" loading="lazy" decoding="async"></div>
+    </div>
+  </div>
 
   <div style="position:relative;z-index:2;width:100%;max-width:820px;margin:0 auto;text-align:center">
-    <!-- postcard of the Kasakh gorge / Ararat illustration -->
-    <div data-reveal style="position:relative;padding:14px;max-width:680px;margin:0 auto clamp(34px,5.5vh,56px)">
-      <div style="position:absolute;inset:0;border:1px solid rgba(166,132,63,.34);pointer-events:none;z-index:3"></div>
-      <div style="position:absolute;top:-1px;left:-1px;width:18px;height:18px;border-top:1px solid var(--brass);border-left:1px solid var(--brass);z-index:3"></div>
-      <div style="position:absolute;top:-1px;right:-1px;width:18px;height:18px;border-top:1px solid var(--brass);border-right:1px solid var(--brass);z-index:3"></div>
-      <div style="position:absolute;bottom:-1px;left:-1px;width:18px;height:18px;border-bottom:1px solid var(--brass);border-left:1px solid var(--brass);z-index:3"></div>
-      <div style="position:absolute;bottom:-1px;right:-1px;width:18px;height:18px;border-bottom:1px solid var(--brass);border-right:1px solid var(--brass);z-index:3"></div>
-      <div style="overflow:hidden">
-        <img src="../img/hero-saghmosavank.jpg" alt="" loading="lazy" decoding="async" style="display:block;width:100%;height:clamp(210px,30vh,320px);object-fit:cover;object-position:50% 82%;animation:artIn 2.4s cubic-bezier(.22,.61,.36,1) both">
-      </div>
-    </div>
-    <h1 data-i18n="inv.title" data-reveal data-delay="60" style="margin:0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:300;line-height:1;color:var(--ink);letter-spacing:.012em;font-size:clamp(40px,7.5vw,84px)">You're invited</h1>
+    <h1 data-i18n="inv.title" data-reveal style="margin:0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-weight:300;line-height:1;color:var(--ink);letter-spacing:.012em;font-size:clamp(40px,7.5vw,84px)">You're invited</h1>
     <p id="party-name" data-reveal data-delay="80" style="margin:20px 0 0;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-style:italic;font-weight:400;font-size:clamp(24px,4vw,42px);color:var(--accent);letter-spacing:.03em"><span class="shimmer" aria-hidden="true"></span></p>
     <p data-i18n="inv.line" data-reveal data-delay="140" style="font-family:'EB Garamond','Noto Serif Armenian',serif;font-style:italic;font-size:clamp(16px,1.7vw,19.5px);color:var(--ink-soft);max-width:46ch;margin:22px auto 0;line-height:1.6">We would be honoured to have you with us — above the Kasakh Gorge, where the road finally leads home.</p>
 
     <!-- date & place highlight -->
-    <div data-reveal data-delay="200" style="position:relative;margin:clamp(36px,6vh,56px) auto 0;max-width:720px;padding:clamp(28px,4.5vw,46px) clamp(20px,4vw,40px)">
+    <div data-reveal data-delay="200" style="position:relative;margin:clamp(36px,6vh,56px) auto 0;max-width:720px;padding:clamp(28px,4.5vw,46px) clamp(20px,4vw,40px);background:rgba(253,240,224,.86);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)">
       <div style="position:absolute;inset:0;border:1px solid rgba(166,132,63,.34);pointer-events:none"></div>
       <div style="position:absolute;top:-1px;left:-1px;width:18px;height:18px;border-top:1px solid var(--brass);border-left:1px solid var(--brass)"></div>
       <div style="position:absolute;top:-1px;right:-1px;width:18px;height:18px;border-top:1px solid var(--brass);border-right:1px solid var(--brass)"></div>
@@ -198,7 +187,7 @@ textarea.inv-input{resize:vertical;min-height:76px;line-height:1.5}
       </div>
     </div>
 
-    <a href="../" data-reveal data-delay="260" class="hover-brass" style="display:inline-flex;align-items:center;gap:8px;margin-top:26px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);text-decoration:none;border-bottom:1px solid rgba(166,132,63,.5);padding-bottom:2px"><span data-i18n="inv.detailsCta">Schedule, map &amp; details</span><svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 h13 M12 5 l7 7 -7 7"/></svg></a>
+    <a href="../" data-reveal data-delay="260" class="hover-brass" style="display:inline-flex;align-items:center;gap:8px;margin-top:26px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);text-decoration:none;border:1px solid rgba(166,132,63,.4);padding:9px 16px;background:rgba(253,240,224,.85)"><span data-i18n="inv.detailsCta">Schedule, map &amp; details</span><svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 h13 M12 5 l7 7 -7 7"/></svg></a>
   </div>
 </section>
 
