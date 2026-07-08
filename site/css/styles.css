@@ -40,6 +40,11 @@ a:focus-visible,button:focus-visible{outline:2px solid #a6843f;outline-offset:3p
    sky. The sun sprite is decoupled and composed in viewport coordinates
    so it always stays in view. Each plane parallaxes at its own speed. */
 .scene{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;background:#fdf0e0}
+/* Single refined vector scene: full-bleed, anchored to the bottom so the
+   gorge/church sit at the base and the sky fills upward. Never rasterised. */
+.scene-full{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center bottom;
+  animation:artIn 2s cubic-bezier(.22,.61,.36,1) both}
 .scene-layer{position:absolute;inset:0}
 .scene-pos{position:absolute;bottom:0;right:-3%;
   width:max(126%,170vh);aspect-ratio:1536/1024}
@@ -60,7 +65,13 @@ header h1,header h1 span,header p{text-shadow:0 0 18px rgba(253,240,224,.7)}
    Parallax is measured relative to the details section (invite.js), so
    the plates sit composed exactly where guests read. */
 .world{position:relative;background:#fdf0e0;overflow:hidden}
-.world-scene{position:absolute;left:0;right:0;top:0;bottom:-170px;pointer-events:none}
+/* Scene backs the first screen of the invite exactly like the hero:
+   viewport-tall, anchored top, and faded into the linen below so the
+   details/RSVP that follow sit cleanly on the page colour. */
+.world-scene{position:absolute;left:0;right:0;top:0;height:100vh;height:100svh;pointer-events:none}
+.world-scene .scene-full{
+  -webkit-mask-image:linear-gradient(180deg,#000 76%,transparent);
+  mask-image:linear-gradient(180deg,#000 76%,transparent)}
 .world .dusk{height:150px;background:linear-gradient(180deg,rgba(51,39,31,0),#33271f)}
 .veil-card{background:rgba(253,240,224,.9);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
   border:1px solid rgba(166,132,63,.35);padding:clamp(24px,4vw,44px)}

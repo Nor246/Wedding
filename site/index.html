@@ -46,9 +46,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Noto+Serif+Armenian:wght@300;400;500;600&family=Noto+Sans+Armenian:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=20260708c">
-<script src="js/image-slot.js?v=20260708c" defer></script>
-<script src="js/main.js?v=20260708c" defer></script>
+<link rel="stylesheet" href="css/styles.css?v=20260709">
+<script src="js/image-slot.js?v=20260709" defer></script>
+<script src="js/main.js?v=20260709" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -70,18 +70,9 @@
 <!-- ============ HERO ============ -->
 <header style="position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px clamp(18px,5vw,52px) 72px;overflow:hidden;background:#fdf0e0">
 
-  <!-- Kasakh gorge / Ararat illustration cut into true depth planes:
-       sun+clouds+birds drift slowest, the massif mid, the gorge fastest. -->
+  <!-- Kasakh gorge / Saghmosavank / Ararat — single refined vector illustration. -->
   <div class="scene" aria-hidden="true">
-    <div class="scene-layer" data-parallax data-speed="0.04">
-      <div class="sun-frame"><img src="img/layer-sun.png" alt="" fetchpriority="high" decoding="async" style="animation-delay:.15s"></div>
-    </div>
-    <div class="scene-layer" data-parallax data-speed="0.10">
-      <div class="scene-pos"><img class="img-full" src="img/layer-ararat.png" alt="" fetchpriority="high" decoding="async" style="animation-delay:.3s"></div>
-    </div>
-    <div class="scene-layer" data-parallax data-speed="0.22">
-      <div class="scene-pos"><img class="img-full" src="img/layer-gorge.png" alt="" fetchpriority="high" decoding="async" style="animation-delay:.45s"></div>
-    </div>
+    <img class="scene-full" src="img/saghmosavank-hero-church-refined.svg" alt="" fetchpriority="high" decoding="async">
   </div>
   <div class="hero-blend" aria-hidden="true"></div>
 
@@ -187,14 +178,6 @@
           <p data-i18n="ess.travVal" style="margin:0 0 4px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(22px,2.4vw,28px);color:var(--ink);line-height:1.16">About 40 minutes by car</p>
           <p data-i18n="ess.travSub" style="margin:0;font-family:'EB Garamond','Noto Serif Armenian',serif;font-size:16px;color:var(--ink-soft)">Taxis recommended for arrival</p>
         </div>
-      </div>
-      <div data-reveal data-delay="120" style="position:relative;padding:14px">
-        <div style="position:absolute;inset:0;border:1px solid rgba(166,132,63,.34)"></div>
-        <div style="position:absolute;top:-1px;left:-1px;width:18px;height:18px;border-top:1px solid var(--brass);border-left:1px solid var(--brass)"></div>
-        <div style="position:absolute;top:-1px;right:-1px;width:18px;height:18px;border-top:1px solid var(--brass);border-right:1px solid var(--brass)"></div>
-        <div style="position:absolute;bottom:-1px;left:-1px;width:18px;height:18px;border-bottom:1px solid var(--brass);border-left:1px solid var(--brass)"></div>
-        <div style="position:absolute;bottom:-1px;right:-1px;width:18px;height:18px;border-bottom:1px solid var(--brass);border-right:1px solid var(--brass)"></div>
-        <image-slot id="lwh-garden" shape="rounded" radius="1" fit="cover" placeholder="Drop a photo of the garden / gorge" style="display:block;width:100%;height:clamp(360px,48vh,520px)"></image-slot>
       </div>
     </div>
   </div>
@@ -372,13 +355,14 @@
             <iframe title="Map of Vagharshyan Garden, Saghmosavan, Armenia" src="https://www.openstreetmap.org/export/embed.html?bbox=44.3697%2C40.3663%2C44.4197%2C40.3943&amp;layer=mapnik&amp;marker=40.380342%2C44.394665" loading="lazy" style="display:block;width:100%;height:clamp(340px,46vh,480px);border:0;filter:sepia(0.42) saturate(0.72) hue-rotate(-8deg) brightness(1.04) contrast(0.92)"></iframe>
             <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(125% 120% at 50% 28%, rgba(166,132,63,0.05), rgba(60,64,37,0.17));mix-blend-mode:multiply"></div>
             <div style="position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 60px rgba(51,39,31,0.22)"></div>
+            <a href="https://maps.app.goo.gl/AiJDRU8QNuRph5mY9" target="_blank" rel="noopener" aria-label="Open Vagharshyan Garden in Google Maps" style="position:absolute;inset:0;z-index:4"></a>
           </div>
         </div>
         <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px 18px;margin-top:18px">
           <span style="display:inline-flex;align-items:center;gap:8px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink)"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent)"></span><span data-i18n="trv.mapYerevan">YEREVAN</span></span>
           <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--cognac)" data-i18n="trv.mapTime">≈ 40 minutes</span>
           <span style="display:inline-flex;align-items:center;gap:8px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink)"><span style="width:7px;height:7px;background:var(--olive)"></span><span data-i18n="trv.mapVenue">THE GARDEN</span></span>
-          <a href="https://www.google.com/maps/dir/?api=1&amp;destination=40.380342%2C44.394665" target="_blank" rel="noopener" class="hover-brass" style="display:inline-flex;align-items:center;gap:7px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);text-decoration:none;border-bottom:1px solid rgba(166,132,63,.5);padding-bottom:2px"><svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 h13 M12 5 l7 7 -7 7"/></svg><span data-i18n="trv.directions">Open directions</span></a>
+          <a href="https://maps.app.goo.gl/AiJDRU8QNuRph5mY9" target="_blank" rel="noopener" class="hover-brass" style="display:inline-flex;align-items:center;gap:7px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);text-decoration:none;border-bottom:1px solid rgba(166,132,63,.5);padding-bottom:2px"><svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 h13 M12 5 l7 7 -7 7"/></svg><span data-i18n="trv.directions">Open directions</span></a>
         </div>
       </div>
     </div>
@@ -404,7 +388,6 @@
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(20px,3vw,32px)">
       <div data-reveal style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(30px,4vw,44px) 28px;border:1px solid rgba(166,132,63,.36);background:rgba(241,233,216,.04)">
-        <image-slot id="lwh-ksenia" shape="circle" fit="cover" placeholder="Photo" style="display:block;width:96px;height:96px;margin-bottom:20px"></image-slot>
         <h3 data-i18n="con.n1" style="margin:0 0 4px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(26px,3vw,34px);color:var(--cream)">Ksenia</h3>
         <p data-i18n="con.r1" style="margin:0 0 22px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass)">Guest coordinator</p>
         <a href="https://t.me/Kseniya_GY" target="_blank" rel="noopener" class="contact-link" style="display:flex;align-items:center;gap:11px;color:var(--cream);text-decoration:none;font-family:'EB Garamond',serif;font-size:17px;padding:9px 4px;border-bottom:1px solid transparent">
@@ -417,7 +400,6 @@
         </a>
       </div>
       <div data-reveal data-delay="100" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(30px,4vw,44px) 28px;border:1px solid rgba(166,132,63,.36);background:rgba(241,233,216,.04)">
-        <image-slot id="lwh-kristina" shape="circle" fit="cover" placeholder="Photo" style="display:block;width:96px;height:96px;margin-bottom:20px"></image-slot>
         <h3 data-i18n="con.n2" style="margin:0 0 4px;font-family:'Cormorant Garamond','Noto Serif Armenian',serif;font-size:clamp(26px,3vw,34px);color:var(--cream)">Kristina</h3>
         <p data-i18n="con.r2" style="margin:0 0 22px;font-family:'Jost','Noto Sans Armenian',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass)">Guest coordinator</p>
         <a href="https://t.me/svadba_kris" target="_blank" rel="noopener" class="contact-link" style="display:flex;align-items:center;gap:11px;color:var(--cream);text-decoration:none;font-family:'EB Garamond',serif;font-size:17px;padding:9px 4px;border-bottom:1px solid transparent">
