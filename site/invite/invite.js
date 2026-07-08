@@ -177,8 +177,8 @@
     });
     langBtns.forEach(function (btn) {
       var active = btn.getAttribute("data-lang") === lang;
-      btn.style.color = active ? "var(--cream)" : "var(--cream-soft)";
-      btn.style.borderBottomColor = active ? "var(--brass)" : "transparent";
+      btn.style.color = active ? "var(--ink)" : "var(--ink-soft)";
+      btn.style.borderBottomColor = active ? "var(--accent)" : "transparent";
       btn.setAttribute("aria-pressed", active ? "true" : "false");
     });
     try { document.documentElement.lang = lang; } catch (e) {}

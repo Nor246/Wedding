@@ -34,25 +34,36 @@ a:focus-visible,button:focus-visible{outline:2px solid #a6843f;outline-offset:3p
 
 /* ---- Layered illustration scene (Kasakh gorge / Ararat) ----
    The artwork is cut into depth planes (sun+clouds+birds / massif /
-   gorge). All plates live on one bottom-anchored 3:2 canvas so they stay
-   registered; each plane parallaxes at its own speed and fades in with a
-   slow "dawn" settle. hero-blend melts the gorge into the next section. */
+   gorge). The massif+gorge plates share one bottom-anchored 3:2 canvas,
+   ZOOMED and anchored to the RIGHT so the gorge, cliff (and what exists
+   of the church at the artwork's edge) fill the frame instead of empty
+   sky. The sun sprite is decoupled and composed in viewport coordinates
+   so it always stays in view. Each plane parallaxes at its own speed. */
 .scene{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;background:#fdf0e0}
 .scene-layer{position:absolute;inset:0}
-.scene-pos{position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-  width:max(100%,150vh);aspect-ratio:1536/1024}
-.scene-pos>img{position:absolute;display:block;
+.scene-pos{position:absolute;bottom:0;right:-3%;
+  width:max(126%,170vh);aspect-ratio:1536/1024}
+.scene-pos>img,.sun-frame>img{display:block;
   animation:artIn 2s cubic-bezier(.22,.61,.36,1) both}
+.scene-pos>img{position:absolute}
 .img-full{inset:0;width:100%;height:100%}
-.img-sun{left:0;top:0;width:36.59%;height:auto}
+.sun-frame{position:absolute;inset:0}
+.sun-frame>img{position:absolute;left:clamp(10px,3.5vw,60px);top:clamp(72px,10vh,132px);
+  width:clamp(180px,24vw,330px);height:auto}
 .hero-blend{position:absolute;left:0;right:0;bottom:-1px;height:130px;z-index:2;pointer-events:none;
   background:linear-gradient(180deg,rgba(239,230,212,0),#efe6d4)}
+/* soft cushion so hero text stays legible over the busier crop */
+header h1,header h1 span,header p{text-shadow:0 0 18px rgba(253,240,224,.7)}
 
-/* Invite page: the same planes back the "You're invited" section, with
-   parallax measured relative to the section (see invite.js). The scene
-   bleeds beyond the section so offsets never expose an edge. */
-.iscene{position:absolute;left:0;right:0;top:-180px;bottom:-180px;pointer-events:none}
-.iscene .scene-pos{width:max(100%,1240px)}
+/* ---- Invite page: one continuous world ----
+   A single scene spans video → details → RSVP; sections float over it.
+   Parallax is measured relative to the details section (invite.js), so
+   the plates sit composed exactly where guests read. */
+.world{position:relative;background:#fdf0e0;overflow:hidden}
+.world-scene{position:absolute;left:0;right:0;top:0;bottom:-170px;pointer-events:none}
+.world .dusk{height:150px;background:linear-gradient(180deg,rgba(51,39,31,0),#33271f)}
+.veil-card{background:rgba(253,240,224,.9);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  border:1px solid rgba(166,132,63,.35);padding:clamp(24px,4vw,44px)}
 
 /* ---- Scroll reveals ----
    Elements stay hidden only when JS is present (html.js); without JS
