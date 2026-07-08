@@ -26,7 +26,6 @@ a:focus-visible,button:focus-visible{outline:2px solid #a6843f;outline-offset:3p
 /* ---- Keyframes ---- */
 @keyframes drawIn{to{stroke-dashoffset:0}}
 @keyframes artIn{from{opacity:0;transform:scale(1.05) translateY(10px)}to{opacity:1;transform:none}}
-@keyframes flicker{0%,100%{transform:scale(1);opacity:.95}20%{transform:scale(1.06,.94);opacity:1}40%{transform:scale(.96,1.06);opacity:.82}60%{transform:scale(1.04,.97);opacity:1}80%{transform:scale(.98,1.03);opacity:.9}}
 @keyframes twinkle{0%,100%{opacity:.1}50%{opacity:.8}}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @keyframes reveal{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
@@ -48,8 +47,6 @@ a:focus-visible,button:focus-visible{outline:2px solid #a6843f;outline-offset:3p
 .img-sun{left:0;top:0;width:36.59%;height:auto}
 .hero-blend{position:absolute;left:0;right:0;bottom:-1px;height:130px;z-index:2;pointer-events:none;
   background:linear-gradient(180deg,rgba(239,230,212,0),#efe6d4)}
-/* On narrow screens the flanking candles collide with the countdown. */
-@media (max-width:640px){.hero-candle{display:none}}
 
 /* Invite page: the same planes back the "You're invited" section, with
    parallax measured relative to the section (see invite.js). The scene
